@@ -7,6 +7,7 @@
     "enzyme-adapter-react-16": "^1.6.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
     "react-test-renderer": "^16.5.2"
   },
@@ -24,5 +25,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-mock-router": "^1.0.15",
+    "react-router-test-context": "^0.1.0"
+  }
 }
