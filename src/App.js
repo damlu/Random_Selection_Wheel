@@ -1,14 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LiveStreamer from "./twitchFiles/getLiveStreamer";
 import ReactPlayer from "react-player";
-
-// <ReactTwitchEmbedVideo channel="talk2megooseman" />
+import TenStreamers from "./twitchFiles/DisplayTwitchComponent";
 
 class BasicExample extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { url: "" };
+    this.state = {
+      url: "",
+      viewing: "",
+      name: "",
+      game: ""
+    };
     this.getStreamerName = this.getStreamerName.bind(this);
     this.resetURL = this.resetURL.bind(this);
   }
@@ -17,7 +21,15 @@ class BasicExample extends React.Component {
     const streamer = new LiveStreamer();
     streamer.getStreamerInfo().then((payload, streamer) => {
       console.log(payload.channel.url);
-      this.setState({ url: payload.channel.url }, console.log("state set"));
+      this.setState(
+        {
+          url: payload.channel.url,
+          name: payload.channel.display_name,
+          game: payload.game,
+          viewing: payload.viewers
+        },
+        console.log("state set")
+      );
     });
   }
   resetURL() {
@@ -32,16 +44,27 @@ class BasicExample extends React.Component {
     );
 
     const video = !this.state.url ? null : (
-      <ReactPlayer url={`${this.state.url}`} />
+      <Fragment>
+        <ReactPlayer url={`${this.state.url}`} />
+        <h1>
+          Current streamer is:
+          {this.state.name}
+        </h1>
+        <h2>
+          Game:
+          {this.state.game}
+        </h2>
+        <h3>
+          Number of viewers:
+          {this.state.viewing}
+        </h3>
+      </Fragment>
     );
-    console.log(this.state.url);
+    console.log(this.state);
     return (
       <Router>
-        <div>
-          <hr />
-
+        <Fragment>
           <Route exact path="/" component={Home} />
-
           <button
             type="submit"
             onClick={e => {
@@ -53,7 +76,8 @@ class BasicExample extends React.Component {
             RandoStream
           </button>
           {video}
-        </div>
+          <TenStreamers />
+        </Fragment>
       </Router>
     );
   }
