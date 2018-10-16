@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import LiveStreamer from "./twitchFiles/getLiveStreamer";
 import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/DisplayTwitchComponent";
+import SpinningWheel from "./spinningwheel/displaycomponent";
 
 class BasicExample extends React.Component {
   constructor(props) {
@@ -76,7 +77,12 @@ class BasicExample extends React.Component {
             RandoStream
           </button>
           {video}
-          <TenStreamers />
+          <div>
+            <TenStreamers />
+          </div>
+          <div>
+            <SpinningWheel />
+          </div>
         </Fragment>
       </Router>
     );

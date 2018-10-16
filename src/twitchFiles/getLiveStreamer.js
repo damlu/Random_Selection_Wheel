@@ -52,8 +52,8 @@ class LiveStreamer {
 
 export default LiveStreamer;
 
-const stream = new LiveStreamer();
-stream.getStreamerInfo().then(result => {
-  console.log(typeof stream);
-  console.log(stream.getDisplayName(result));
-});
+// const stream = new LiveStreamer();
+// stream.getStreamerInfo().then(result => {
+//   console.log(typeof stream);
+//   console.log(stream.getDisplayName(result));
+// });

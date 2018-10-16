@@ -2,7 +2,7 @@ const config = require("./config");
 // const _ = require("lodash");
 const rp = require("request-promise");
 
-class LiveStreamer {
+class GetStreamers {
   constructor() {
     this.request = this.request();
     this.broadcastInfo = [];
@@ -10,6 +10,7 @@ class LiveStreamer {
     this.URLS = [];
     this.getTenImages = this.getTenImages.bind(this);
     this.getTenURLS = this.getTenURLS.bind(this);
+    this.getTenStreams = this.getTenStreams.bind(this);
   }
 
   request(cursor) {
@@ -45,6 +46,7 @@ class LiveStreamer {
           this.broadcastInfo.push(payload.streams[randomNumber]);
           counter--;
         }
+        // console.log(this.broadcastInfo);
         return this.broadcastInfo;
       })
       .catch(err => {
@@ -79,9 +81,18 @@ class LiveStreamer {
     streamerData["previewImages"] = this.previewImages[num];
     return streamerData;
   }
+
+  getTenImagesAndURLS(broadcastInfo) {
+    broadcastInfo.forEach((broadcast, i) => {
+      this.imagesAndURLS[i + 1] = {
+        URL: this.getURL(broadcast),
+        image: this.getImage(broadcast)
+      };
+    });
+  }
 }
 
-export default LiveStreamer;
+export default GetStreamers;
 
 // const stream = new LiveStreamer();
 // stream.getTenStreams().then(() => {
