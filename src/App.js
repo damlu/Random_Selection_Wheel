@@ -17,7 +17,7 @@ class BasicExample extends React.Component {
     };
     this.getStreamerName = this.getStreamerName.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.getWedges = this.getWedges.bind(this);
+    // this.getWedges = this.getWedges.bind(this);
     this.displayStream = this.displayStream.bind(this);
   }
 
@@ -39,18 +39,18 @@ class BasicExample extends React.Component {
   resetState() {
     this.setState({ url: "", wedgesSource: {} });
   }
-
-  getWedges() {
-    const streamers = new TenStreamers();
-    streamers.getTenStreams().then(payload => {
-      streamers.getTenImagesAndURLS(payload);
-      this.setState({ wedgesSource: streamers.imagesAndURLS });
-    });
-  }
-
-  componentDidMount() {
-    this.getWedges();
-  }
+  //
+  // getWedges() {
+  //   const streamers = new TenStreamers();
+  //   streamers.getTenStreams().then(payload => {
+  //     streamers.getTenImagesAndURLS(payload);
+  //     this.setState({ wedgesSource: streamers.imagesAndURLS });
+  //   });
+  // }
+  //
+  // componentDidMount() {
+  //   this.getWedges();
+  // }
 
   displayStream() {
     return (
@@ -79,11 +79,9 @@ class BasicExample extends React.Component {
       </div>
     );
 
-    const wheel = this.state.wedgesSource[1] ? (
-      <SpinningWheel sources={this.state.wedgesSource} />
-    ) : null;
+    // const wheel = this.state.wedgesSource[1] ? <SpinningWheel /> : null;
 
-    console.log(wheel);
+    // console.log(wheel);
     const video = !this.state.url ? null : this.displayStream();
     return (
       <Router>
@@ -101,7 +99,7 @@ class BasicExample extends React.Component {
           </button>
           {video}
 
-          <div>{wheel}</div>
+          <SpinningWheel />
         </Fragment>
       </Router>
     );

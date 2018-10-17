@@ -36,6 +36,7 @@ class GetStreamers {
 
   getTenStreams() {
     console.log("getting streamer");
+    const that = this;
     return rp(this.request)
       .then(payload => {
         let set = new Set([]);
@@ -49,11 +50,10 @@ class GetStreamers {
             randomNumber = Math.floor(Math.random() * 99);
           }
           set.add(randomNumber);
-          this.broadcastInfo.push(payload.streams[randomNumber]);
+          that.broadcastInfo.push(payload.streams[randomNumber]);
           counter--;
         }
-        // console.log(this.broadcastInfo);
-        return this.broadcastInfo;
+        return that.broadcastInfo;
       })
       .catch(err => {
         console.log("couldn't make request");
