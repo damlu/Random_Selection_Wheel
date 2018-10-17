@@ -8,6 +8,7 @@ class GetStreamers {
     this.broadcastInfo = [];
     this.previewImages = [];
     this.URLS = [];
+    this.imagesAndURLS = {};
     this.getTenImages = this.getTenImages.bind(this);
     this.getTenURLS = this.getTenURLS.bind(this);
     this.getTenStreams = this.getTenStreams.bind(this);
@@ -37,12 +38,17 @@ class GetStreamers {
     console.log("getting streamer");
     return rp(this.request)
       .then(payload => {
+        let set = new Set([]);
         let counter = 10;
         while (counter > 0) {
-          let randomNumber = Math.floor(Math.random() * 90);
+          let randomNumber = Math.floor(Math.random() * 99);
           if (payload._total < 100) {
             randomNumber = Math.floor(Math.random() * payload._total);
           }
+          while (set.has(randomNumber)) {
+            randomNumber = Math.floor(Math.random() * 99);
+          }
+          set.add(randomNumber);
           this.broadcastInfo.push(payload.streams[randomNumber]);
           counter--;
         }

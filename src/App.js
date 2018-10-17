@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LiveStreamer from "./twitchFiles/getLiveStreamer";
 import ReactPlayer from "react-player";
-import TenStreamers from "./twitchFiles/DisplayTwitchComponent";
+import TenStreamers from "./twitchFiles/getTenStreamers";
 import SpinningWheel from "./spinningwheel/displaycomponent";
 
 class BasicExample extends React.Component {
@@ -12,10 +12,13 @@ class BasicExample extends React.Component {
       url: "",
       viewing: "",
       name: "",
-      game: ""
+      game: "",
+      wedgesSource: {}
     };
     this.getStreamerName = this.getStreamerName.bind(this);
-    this.resetURL = this.resetURL.bind(this);
+    this.resetState = this.resetState.bind(this);
+    this.getWedges = this.getWedges.bind(this);
+    this.displayStream = this.displayStream.bind(this);
   }
 
   getStreamerName() {
@@ -33,18 +36,24 @@ class BasicExample extends React.Component {
       );
     });
   }
-  resetURL() {
-    this.setState({ url: "" });
+  resetState() {
+    this.setState({ url: "", wedgesSource: {} });
   }
 
-  render() {
-    const Home = () => (
-      <div>
-        <h2>Home</h2>
-      </div>
-    );
+  getWedges() {
+    const streamers = new TenStreamers();
+    streamers.getTenStreams().then(payload => {
+      streamers.getTenImagesAndURLS(payload);
+      this.setState({ wedgesSource: streamers.imagesAndURLS });
+    });
+  }
 
-    const video = !this.state.url ? null : (
+  componentDidMount() {
+    this.getWedges();
+  }
+
+  displayStream() {
+    return (
       <Fragment>
         <ReactPlayer url={`${this.state.url}`} />
         <h1>
@@ -61,7 +70,21 @@ class BasicExample extends React.Component {
         </h3>
       </Fragment>
     );
-    console.log(this.state);
+  }
+
+  render() {
+    const Home = () => (
+      <div>
+        <h2>Home</h2>
+      </div>
+    );
+
+    const wheel = this.state.wedgesSource[1] ? (
+      <SpinningWheel sources={this.state.wedgesSource} />
+    ) : null;
+
+    console.log(wheel);
+    const video = !this.state.url ? null : this.displayStream();
     return (
       <Router>
         <Fragment>
@@ -70,19 +93,15 @@ class BasicExample extends React.Component {
             type="submit"
             onClick={e => {
               e.preventDefault();
-              this.resetURL();
+              this.resetState();
               this.getStreamerName();
             }}
           >
             RandoStream
           </button>
           {video}
-          <div>
-            <TenStreamers />
-          </div>
-          <div>
-            <SpinningWheel />
-          </div>
+
+          <div>{wheel}</div>
         </Fragment>
       </Router>
     );
