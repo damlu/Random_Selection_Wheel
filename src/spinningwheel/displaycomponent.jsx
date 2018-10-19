@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import "./style.css";
 import TenStreamers from "./../twitchFiles/getTenStreamers";
-// import ReactTimeout from "react-timeout";
 
 class SpinningWheel extends React.Component {
   constructor(props) {
@@ -9,8 +8,7 @@ class SpinningWheel extends React.Component {
     console.log(props);
     this.createWedges = this.createWedges.bind(this);
     this.startSpin = this.startSpin.bind(this);
-    this.getWedges = this.getWedges.bind(this);
-    // this.stopSpin = this.stopSpin.bind(this);
+    this.getStreamers = this.getStreamers.bind(this);
     this.state = {
       spinning: "start",
       wedges: null,
@@ -22,9 +20,10 @@ class SpinningWheel extends React.Component {
     };
   }
 
-  getWedges() {
+  getStreamers() {
     const streamers = new TenStreamers();
     return streamers.getTenStreams().then(payload => {
+      console.log(payload);
       streamers.getTenImagesAndURLS(payload);
       this.setState({ sources: streamers.imagesAndURLS, spinning: "start" });
     });
@@ -38,10 +37,10 @@ class SpinningWheel extends React.Component {
     let rotateBy = 0;
     const selected = Math.floor(Math.random() * totalWedges);
     const spinBy = () => {
-      if (degree * selected - 36 < 0) {
+      if (degree * selected - degree < 0) {
         return 0;
       } else {
-        return -(degree * selected - 36);
+        return -(degree * selected - degree);
       }
     };
     let result;
@@ -56,6 +55,7 @@ class SpinningWheel extends React.Component {
         console.log(this.state.sources[key]["URL"]);
         result = this.state.sources[key]["URL"];
       }
+
       wedges.push(
         <div key={key} style={rotation} className={`scaleDiv wedgePosition`}>
           <div className={"triangleTransform"}>
@@ -71,22 +71,19 @@ class SpinningWheel extends React.Component {
       );
       rotateBy += degree;
     }
-    this.setState(
-      {
-        spinning: "spinning",
-        wedges: wedges,
-        result: result,
-        spinBy: spinBy() + this.state.rotations
-      }
-      // console.log(this.state)
-    );
+    this.setState({
+      spinning: "spinning",
+      wedges: wedges,
+      result: result,
+      spinBy: spinBy() + this.state.rotations
+    });
 
     return Promise.resolve("Success");
   }
 
   startSpin() {
     this.setState({ spinning: "stopped" });
-    this.getWedges().then(() => {
+    this.getStreamers().then(() => {
       this.createWedges();
     });
   }
@@ -99,12 +96,6 @@ class SpinningWheel extends React.Component {
       spinner = null;
     }
     if (this.state.spinning === "spinning") {
-      // const selected = Math.floor(Math.random() * this.state.wedges.length);
-      // const spinBy = this.state.degree * selected;
-      // console.log(`${this.state.degree} degree`);
-      // console.log(`${this.state.result} this.state.result`);
-      // console.log(`${this.state.spinBy} spinBy`);
-      // console.log(this.state.wedges.length);
       circleColor = "circleAttrubutesRed";
       spinner = {
         animation: "spin 5s",

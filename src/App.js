@@ -13,7 +13,8 @@ class BasicExample extends React.Component {
       viewing: "",
       name: "",
       game: "",
-      wedgesSource: {}
+      wedgesSource: {},
+      result: ""
     };
     this.getStreamerName = this.getStreamerName.bind(this);
     this.resetState = this.resetState.bind(this);
@@ -70,6 +71,10 @@ class BasicExample extends React.Component {
         </h3>
       </Fragment>
     );
+  }
+
+  spinResult(spinResult) {
+    this.setState({ result: spinResult });
   }
 
   render() {
