@@ -16,7 +16,8 @@ class SpinningWheel extends React.Component {
       degree: 0,
       spinBy: 0,
       result: "",
-      rotations: this.props.rotations * 360
+      rotations: this.props.rotations * 360,
+      displayResult: false
     };
   }
 
@@ -77,14 +78,18 @@ class SpinningWheel extends React.Component {
       result: result,
       spinBy: spinBy() + this.state.rotations
     });
-
+    this.props.passBackResult(this.state.result);
     return Promise.resolve("Success");
   }
 
   startSpin() {
-    this.setState({ spinning: "stopped" });
+    this.setState({ spinning: "stopped", displayResult: false });
     this.getStreamers().then(() => {
-      this.createWedges();
+      this.createWedges().then(() => {
+        setTimeout(() => {
+          this.setState({ displayResult: true }, console.log(this));
+        }, 5000);
+      });
     });
   }
 
@@ -105,10 +110,17 @@ class SpinningWheel extends React.Component {
     if (this.state.spinning === "stopped") {
       circleColor = "circleAttrubutesRed";
     }
+    console.log(this.state.displayResult);
+    const displayResult = this.state.displayResult
+      ? this.props.displayResult()
+      : null;
+    // const spin = { "clipPath": "polygon(50% 100%, 18% 0%, 82% 0%)" };
+    // console.log("displayResult" + displayResult);
     return (
       <Fragment>
         <div>
           <div className={"pointer"} />
+          {displayResult}
           <button className={"spinnerButton"} onClick={() => this.startSpin()}>
             Spin!
           </button>
@@ -125,4 +137,4 @@ class SpinningWheel extends React.Component {
 
 export default SpinningWheel;
 
-// spin = { "clip-path": "polygon(50% 100%, 18% 0%, 82% 0%)" };
+// const spin = { "clipPath": "polygon(50% 100%, 18% 0%, 82% 0%)" };

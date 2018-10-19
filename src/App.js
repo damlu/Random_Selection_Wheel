@@ -40,41 +40,13 @@ class BasicExample extends React.Component {
   resetState() {
     this.setState({ url: "", wedgesSource: {} });
   }
-  //
-  // getWedges() {
-  //   const streamers = new TenStreamers();
-  //   streamers.getTenStreams().then(payload => {
-  //     streamers.getTenImagesAndURLS(payload);
-  //     this.setState({ wedgesSource: streamers.imagesAndURLS });
-  //   });
-  // }
-  //
-  // componentDidMount() {
-  //   this.getWedges();
-  // }
 
   displayStream() {
-    return (
-      <Fragment>
-        <ReactPlayer url={`${this.state.url}`} />
-        <h1>
-          Current streamer is:
-          {this.state.name}
-        </h1>
-        <h2>
-          Game:
-          {this.state.game}
-        </h2>
-        <h3>
-          Number of viewers:
-          {this.state.viewing}
-        </h3>
-      </Fragment>
-    );
+    return <ReactPlayer url={`${this.state.url}`} />;
   }
 
   spinResult(spinResult) {
-    this.setState({ result: spinResult });
+    this.setState({ url: spinResult });
   }
 
   render() {
@@ -84,10 +56,7 @@ class BasicExample extends React.Component {
       </div>
     );
 
-    // const wheel = this.state.wedgesSource[1] ? <SpinningWheel /> : null;
-
-    // console.log(wheel);
-    const video = !this.state.url ? null : this.displayStream();
+    // const video = !this.state.url ? null : this.displayStream();
     return (
       <Router>
         <Fragment>
@@ -102,9 +71,12 @@ class BasicExample extends React.Component {
           >
             RandoStream
           </button>
-          {video}
 
-          <SpinningWheel rotations={8} />
+          <SpinningWheel
+            displayResult={this.displayStream.bind(this)}
+            rotations={8}
+            passBackResult={this.spinResult.bind(this)}
+          />
         </Fragment>
       </Router>
     );
