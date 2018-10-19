@@ -99,7 +99,7 @@ class BasicExample extends React.Component {
           </button>
           {video}
 
-          <SpinningWheel />
+          <SpinningWheel rotations={8} />
         </Fragment>
       </Router>
     );
