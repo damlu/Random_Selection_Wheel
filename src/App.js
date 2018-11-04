@@ -61,16 +61,6 @@ class BasicExample extends React.Component {
       <Router>
         <Fragment>
           <Route exact path="/" component={Home} />
-          <button
-            type="submit"
-            onClick={e => {
-              e.preventDefault();
-              this.resetState();
-              this.getStreamerName();
-            }}
-          >
-            RandoStream
-          </button>
 
           <SpinningWheel
             displayResult={this.displayStream.bind(this)}

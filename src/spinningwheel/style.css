@@ -66,9 +66,10 @@
   left: 50%;
   margin-left: -32px;
   position: absolute;
-  top: 84px;
+  top: 75px;
   z-index: 100;
   width: 0;
+  display: inline-block;
 }
 
 .circleAttrubutesRed {
@@ -101,18 +102,33 @@
   background-color: #9c27b0;
   border: 4px solid #000;
   height: 100px;
-  margin: 0 0 0 -50px;
+  margin: 0 0 0 -80px;
   left: 50%;
   line-height: 95px;
   padding: 0;
-  position: absolute;
+  position: relative;
   border-radius: 100%;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-  top: 35%;
+  top: 275px;
   z-index: 999;
   width: 100px;
+}
+
+.min {
+  min-width: 600px;
+  min-height: 600px;
+  display: inline-block;
+  transform: scale(1.2);
+}
+
+.displayResult {
+  position: absolute;
+  /* transform: scale(0.62) translateX(-29.2px) translateY(52px); */
+  animation: reveal 5s;
+  /* animation-duration: 5s; */
+  z-index: 100;
 }
 
 /* .spinner {
@@ -122,5 +138,16 @@
 @keyframes spin {
   from {
     transform: translate(-50%, 0%) rotate(0deg);
+  }
+}
+
+@keyframes reveal {
+  from {
+    transform: scale(0) translateX(0) translateY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(0.62) translateX(-29.2px) translateY(52px);
+    opacity: 1;
   }
 }
