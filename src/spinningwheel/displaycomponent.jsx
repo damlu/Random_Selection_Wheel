@@ -88,7 +88,7 @@ class SpinningWheel extends React.Component {
       this.createWedges().then(() => {
         setTimeout(() => {
           this.setState({ displayResult: true }, console.log(this));
-        }, 5000);
+        }, 4950);
       });
     });
   }
@@ -114,8 +114,6 @@ class SpinningWheel extends React.Component {
     const displayResult = this.state.displayResult
       ? this.props.displayResult()
       : null;
-    // const spin = { "clipPath": "polygon(50% 100%, 18% 0%, 82% 0%)" };
-    // console.log("displayResult" + displayResult);
     const abs = { position: "absolute" };
     const rel = { position: "relative" };
     return (

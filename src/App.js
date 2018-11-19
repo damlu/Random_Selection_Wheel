@@ -60,8 +60,6 @@ class BasicExample extends React.Component {
     return (
       <Router>
         <Fragment>
-          <Route exact path="/" component={Home} />
-
           <SpinningWheel
             displayResult={this.displayStream.bind(this)}
             rotations={8}
