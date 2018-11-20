@@ -121,21 +121,24 @@
   min-height: 600px;
   display: inline-block;
   transform: scale(1.2);
+  filter: drop-shadow(2px 2px 3px black);
 }
 
 .displayResult {
   position: absolute;
-  /* transform: scale(0.62) translateX(-29.2px) translateY(52px); */
   animation: reveal 5s;
   /* animation-duration: 5s; */
   z-index: 100;
+  width: 100%;
 }
 
 /* .spinner {
   animation: spin 4s;
 } */
 
-button:focus { outline: none; };
+button:focus {
+  outline: none;
+}
 
 @keyframes spin {
   from {

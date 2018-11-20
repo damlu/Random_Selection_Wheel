@@ -42,7 +42,7 @@ class BasicExample extends React.Component {
   }
 
   displayStream() {
-    return <ReactPlayer url={`${this.state.url}`} />;
+    return <ReactPlayer url={`${this.state.url}`} width={"inherit"} />;
   }
 
   spinResult(spinResult) {
