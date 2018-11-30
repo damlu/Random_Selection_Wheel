@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/RandoStream/precache-manifest.16f8a40597e35d4330f74919677040af.js"
+  "/RandoStream/precache-manifest.c45eed719030890289c0c5433f70c722.js"
 );
 
 workbox.clientsClaim();
