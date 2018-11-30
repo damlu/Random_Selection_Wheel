@@ -25,16 +25,12 @@ class BasicExample extends React.Component {
   getStreamerName() {
     const streamer = new LiveStreamer();
     streamer.getStreamerInfo().then((payload, streamer) => {
-      console.log(payload.channel.url);
-      this.setState(
-        {
-          url: payload.channel.url,
-          name: payload.channel.display_name,
-          game: payload.game,
-          viewing: payload.viewers
-        },
-        console.log("state set")
-      );
+      this.setState({
+        url: payload.channel.url,
+        name: payload.channel.display_name,
+        game: payload.game,
+        viewing: payload.viewers
+      });
     });
   }
   resetState() {
