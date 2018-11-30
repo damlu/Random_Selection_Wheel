@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import LiveStreamer from "./twitchFiles/getLiveStreamer";
 import ReactPlayer from "react-player";
-import TenStreamers from "./twitchFiles/getTenStreamers";
+// import TenStreamers from "./twitchFiles/getTenStreamers";
 import SpinningWheel from "./spinningwheel/displaycomponent";
 
 class BasicExample extends React.Component {
@@ -18,7 +18,6 @@ class BasicExample extends React.Component {
     };
     this.getStreamerName = this.getStreamerName.bind(this);
     this.resetState = this.resetState.bind(this);
-    // this.getWedges = this.getWedges.bind(this);
     this.displayStream = this.displayStream.bind(this);
   }
 
@@ -46,13 +45,6 @@ class BasicExample extends React.Component {
   }
 
   render() {
-    const Home = () => (
-      <div>
-        <h2>Home</h2>
-      </div>
-    );
-
-    // const video = !this.state.url ? null : this.displayStream();
     return (
       <Router>
         <Fragment>

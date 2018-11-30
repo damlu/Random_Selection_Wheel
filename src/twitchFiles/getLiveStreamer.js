@@ -1,5 +1,4 @@
 const config = require("./config");
-// const _ = require("lodash");
 const rp = require("request-promise");
 
 class LiveStreamer {
@@ -29,7 +28,6 @@ class LiveStreamer {
   }
 
   getStreamerInfo() {
-    console.log("getting streamer");
     return rp(this.request)
       .then(payload => {
         let randomNumber = Math.floor(Math.random() * 100);
@@ -51,9 +49,3 @@ class LiveStreamer {
 }
 
 export default LiveStreamer;
-
-// const stream = new LiveStreamer();
-// stream.getStreamerInfo().then(result => {
-//   console.log(typeof stream);
-//   console.log(stream.getDisplayName(result));
-// });

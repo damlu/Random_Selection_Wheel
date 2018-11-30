@@ -5,7 +5,6 @@ import TenStreamers from "./../twitchFiles/getTenStreamers";
 class SpinningWheel extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.createWedges = this.createWedges.bind(this);
     this.startSpin = this.startSpin.bind(this);
     this.getStreamers = this.getStreamers.bind(this);
@@ -24,14 +23,12 @@ class SpinningWheel extends React.Component {
   getStreamers() {
     const streamers = new TenStreamers();
     return streamers.getTenStreams().then(payload => {
-      console.log(payload);
       streamers.getTenImagesAndURLS(payload);
       this.setState({ sources: streamers.imagesAndURLS, spinning: "start" });
     });
   }
 
   createWedges() {
-    console.log("creating wedges");
     const wedges = [];
     const totalWedges = Object.keys(this.state.sources).length;
     const degree = 360 / totalWedges;
@@ -45,15 +42,11 @@ class SpinningWheel extends React.Component {
       }
     };
     let result;
-    console.log(`${selected} selected`);
-    console.log(`${spinBy()} spinBy`);
     for (let key in this.state.sources) {
       const rotation = {
         transform: `rotate(${rotateBy}deg)`
       };
       if (key == selected || (selected == 0 && key == 1)) {
-        console.log(`${key} key`);
-        console.log(this.state.sources[key]["URL"]);
         result = this.state.sources[key]["URL"];
       }
 
@@ -87,7 +80,7 @@ class SpinningWheel extends React.Component {
     this.getStreamers().then(() => {
       this.createWedges().then(() => {
         setTimeout(() => {
-          this.setState({ displayResult: true }, console.log(this));
+          this.setState({ displayResult: true });
         }, 4950);
       });
     });
@@ -110,7 +103,6 @@ class SpinningWheel extends React.Component {
     if (this.state.spinning === "stopped") {
       circleColor = "circleAttrubutesRed";
     }
-    console.log(this.state.displayResult);
     const displayResult = this.state.displayResult
       ? this.props.displayResult()
       : null;

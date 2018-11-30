@@ -35,7 +35,6 @@ class GetStreamers {
   }
 
   getTenStreams() {
-    console.log("getting streamer");
     const that = this;
     return rp(this.request)
       .then(payload => {
@@ -99,13 +98,3 @@ class GetStreamers {
 }
 
 export default GetStreamers;
-
-// const stream = new LiveStreamer();
-// stream.getTenStreams().then(() => {
-//   stream.getTenURLS(stream.broadcastInfo);
-//   stream.getTenImages(stream.broadcastInfo);
-//   console.log(stream.previewImages);
-//   console.log(stream.URLS);
-//   console.log(stream.chooseStream(1));
-// console.log(stream.getDisplayName(result));
-// });
