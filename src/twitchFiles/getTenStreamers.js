@@ -39,7 +39,7 @@ class GetStreamers {
     return rp(this.request)
       .then(payload => {
         let set = new Set([]);
-        let counter = 10;
+        let counter = 10; //10
         while (counter > 0) {
           let randomNumber = Math.floor(Math.random() * 99);
           if (payload._total < 100) {
