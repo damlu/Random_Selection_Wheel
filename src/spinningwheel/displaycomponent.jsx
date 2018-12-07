@@ -77,16 +77,20 @@ class SpinningWheel extends React.Component {
   }
 
   getWedges() {
-    // if (typeof this.state.sources === "function") {
-    return this.state.sources().then(payload => {
-      let currentValues = Object.values(payload);
-      if (currentValues.length < this.state.numberOfSources) {
-        payload = this.properNumberOfSources(currentValues);
-      }
-      this.setState({ wedgeSources: payload, spinning: "start" });
+    if (typeof this.state.sources === "function") {
+      return this.state.sources().then(payload => {
+        let currentValues = Object.values(payload);
+        if (currentValues.length < this.state.numberOfSources) {
+          payload = this.properNumberOfSources(currentValues);
+        }
+        this.setState({ wedgeSources: payload, spinning: "start" });
+        return Promise.resolve("Success");
+      });
+    } else {
+      let newOrder = this.shuffleArray(this.state.wedgeSources);
+      this.setState({ wedgeSources: newOrder, spinning: "start" });
       return Promise.resolve("Success");
-    });
-    // }
+    }
   }
 
   createWedges() {
