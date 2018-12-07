@@ -22,14 +22,16 @@ class SpinningWheel extends React.Component {
   }
 
   componentDidMount() {
+    console.log("hey");
     if (typeof this.state.sources === "function") {
-      this.state.sources().then(payload => {
-        let currentValues = Object.values(payload);
-        if (currentValues.length < this.state.numberOfSources) {
-          payload = this.properNumberOfSources(currentValues);
-        }
-        this.setState({ wedgeSources: payload });
-      });
+      this.getWedges();
+      // this.state.sources().then(payload => {
+      //   let currentValues = Object.values(payload);
+      //   if (currentValues.length < this.state.numberOfSources) {
+      //     payload = this.properNumberOfSources(currentValues);
+      //   }
+      //   this.setState({ wedgeSources: payload });
+      // });
     } else {
       let sources = this.state.sources;
       let currentValues = Object.values(sources);
@@ -39,17 +41,20 @@ class SpinningWheel extends React.Component {
     }
   }
 
-  componentWillUpdate() {
-    if (typeof this.state.sources === "function") {
-      this.state.sources().then(payload => {
-        let currentValues = Object.values(payload);
-        if (currentValues.length < this.state.numberOfSources) {
-          payload = this.properNumberOfSources(currentValues);
-        }
-        this.setState({ wedgeSources: payload });
-      });
-    }
-  }
+  // componentWillUpdate() {
+  //   if (this.state.spinning === "stopped") {
+  //     if (typeof this.state.sources === "function") {
+  //       // console.log("hey");
+  //       this.state.sources().then(payload => {
+  //         let currentValues = Object.values(payload);
+  //         if (currentValues.length < this.state.numberOfSources) {
+  //           payload = this.properNumberOfSources(currentValues);
+  //         }
+  //         this.setState({ wedgeSources: payload, spinning: "start" });
+  //       });
+  //     }
+  //   }
+  // }
 
   properNumberOfSources(sources) {
     let currentValues = Object.values(sources);
@@ -69,6 +74,19 @@ class SpinningWheel extends React.Component {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
+  }
+
+  getWedges() {
+    // if (typeof this.state.sources === "function") {
+    return this.state.sources().then(payload => {
+      let currentValues = Object.values(payload);
+      if (currentValues.length < this.state.numberOfSources) {
+        payload = this.properNumberOfSources(currentValues);
+      }
+      this.setState({ wedgeSources: payload, spinning: "start" });
+      return Promise.resolve("Success");
+    });
+    // }
   }
 
   createWedges() {
@@ -91,6 +109,7 @@ class SpinningWheel extends React.Component {
         transform: `rotate(${rotateBy}deg)`
       };
       if (key == selected || (selected == 0 && key == 1)) {
+        console.log(this.state.wedgeSources[key]["image"]);
         result = this.state.wedgeSources[key]["URL"];
       }
 
@@ -109,22 +128,33 @@ class SpinningWheel extends React.Component {
       );
       rotateBy += degree;
     }
-    this.setState({
-      spinning: "spinning",
-      wedges: wedges,
-      result: result,
-      spinBy: spinBy() + this.state.rotations
-    });
+
+    this.setState(
+      {
+        spinning: "spinning",
+        wedges: wedges,
+        result: result,
+        spinBy: spinBy() + this.state.rotations
+      }
+      // () => {
+      //   setTimeout(() => {
+      //     this.setState({ displayResult: true });
+      //   }, 4950);
+      // }
+    );
     // this.props.passBackResult(this.state.result);
     return Promise.resolve("Success");
   }
 
   startSpin() {
     this.setState({ spinning: "stopped", displayResult: false });
-    this.createWedges().then(() => {
-      setTimeout(() => {
-        this.setState({ spinning: "stopped", displayResult: true });
-      }, 4950);
+    this.getWedges().then(() => {
+      this.createWedges().then(() => {
+        // this.setState({ spinning: "stopped" });
+        setTimeout(() => {
+          this.setState({ displayResult: true });
+        }, 4950);
+      });
     });
   }
 
@@ -148,7 +178,6 @@ class SpinningWheel extends React.Component {
     const displayResult = this.state.displayResult
       ? this.props.displayResult(this.state.result)
       : null;
-    const abs = { position: "absolute" };
     const rel = { position: "relative" };
     return (
       <Fragment>
