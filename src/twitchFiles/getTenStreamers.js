@@ -90,7 +90,7 @@ class GetStreamers {
   getTenImagesAndURLS(broadcastInfo) {
     broadcastInfo.forEach((broadcast, i) => {
       this.imagesAndURLS[i + 1] = {
-        URL: this.getURL(broadcast),
+        result: this.getURL(broadcast),
         image: this.getImage(broadcast)
       };
     });

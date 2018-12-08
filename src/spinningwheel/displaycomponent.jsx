@@ -8,15 +8,16 @@ class SpinningWheel extends React.Component {
     this.createWedges = this.createWedges.bind(this);
     this.startSpin = this.startSpin.bind(this);
     this.state = {
+      sources: this.props.sources,
       numberOfSources: this.props.numberOfSources || 10,
+      rotations: (this.props.rotations || 8) * 360,
+      revalTime: this.props.revalTime || 5000,
       spinning: "start",
       wedges: null,
-      sources: this.props.sources,
       wedgeSources: {},
       degree: 0,
       spinBy: 0,
       result: "",
-      rotations: this.props.rotations * 360,
       displayResult: false
     };
   }
@@ -94,7 +95,6 @@ class SpinningWheel extends React.Component {
   }
 
   createWedges() {
-    debugger;
     const wedges = [];
     const totalWedges = Object.keys(this.state.wedgeSources).length;
     const degree = 360 / totalWedges;
@@ -114,7 +114,7 @@ class SpinningWheel extends React.Component {
       };
       if (key == selected || (selected == 0 && key == 1)) {
         console.log(this.state.wedgeSources[key]["image"]);
-        result = this.state.wedgeSources[key]["URL"];
+        result = this.state.wedgeSources[key]["result"];
       }
 
       wedges.push(
@@ -139,12 +139,13 @@ class SpinningWheel extends React.Component {
         wedges: wedges,
         result: result,
         spinBy: spinBy() + this.state.rotations
+        // displayResult: true
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({ displayResult: true });
+        }, this.state.revalTime);
       }
-      // () => {
-      //   setTimeout(() => {
-      //     this.setState({ displayResult: true });
-      //   }, 4950);
-      // }
     );
     // this.props.passBackResult(this.state.result);
     return Promise.resolve("Success");
@@ -153,12 +154,20 @@ class SpinningWheel extends React.Component {
   startSpin() {
     this.setState({ spinning: "stopped", displayResult: false });
     this.getWedges().then(() => {
-      this.createWedges().then(() => {
-        // this.setState({ spinning: "stopped" });
-        setTimeout(() => {
-          this.setState({ displayResult: true });
-        }, 4950);
-      });
+      this.createWedges();
+      // .then(() => {
+      // console.log("wait");
+      // let temp = new Date();
+      // console.log(temp.toLocaleString());
+      // // this.setState({ spinning: "stopped" });
+      // setTimeout(() => {
+      //   // console.log("start");
+      //   // console.log(this.state.revalTime);
+      //   let temp = new Date();
+      //   console.log(temp.toLocaleString());
+      //   this.setState({ displayResult: true });
+      // }, this.state.revalTime);
+      // });
     });
   }
 
@@ -179,14 +188,18 @@ class SpinningWheel extends React.Component {
     if (this.state.spinning === "stopped") {
       circleColor = "circleAttrubutesRed";
     }
-    const displayResult = this.state.displayResult
-      ? this.props.displayResult(this.state.result)
-      : null;
+    console.log(!!this.state.displayResult);
+    const displayResult = this.state.displayResult ? (
+      <div className={"displayResult"}>
+        {this.props.displayResult(this.state.result)}
+      </div>
+    ) : null;
     const rel = { position: "relative" };
+    // console.log(displayResult);
     return (
       <Fragment>
         <div className={"min"}>
-          <div className={"displayResult"}>{displayResult}</div>
+          {displayResult}
           <div style={rel} className={"pointer"} />
           <button
             style={rel}

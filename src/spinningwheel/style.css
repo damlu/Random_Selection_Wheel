@@ -127,10 +127,15 @@
 
 .displayResult {
   position: absolute;
-  animation: reveal 5s;
-  /* animation-duration: 5s; */
+  animation: fadein;
+  animation-duration: 15s;
+  /* animation-delay: 15s; */
+  /* animation-timing-function: ease-in; */
+  /* transition: opacity 10s ease; */
   z-index: 100;
   width: 100%;
+  transform: scale(0.9);
+  top: -16px;
 }
 
 /* .spinner {
@@ -147,13 +152,15 @@ button:focus {
   }
 }
 
-@keyframes reveal {
-  from {
-    transform: scale(0) translateX(0) translateY(0);
+@keyframes fadein {
+  0% {
+    /* z-index: -5; */
+    /* transform: scale(0); */
     opacity: 0;
   }
-  to {
-    transform: scale(0.62) translateX(-29.2px) translateY(52px);
+  100% {
+    /* z-index: 10; */
+    /* transform: scale(0.8); */
     opacity: 1;
   }
 }

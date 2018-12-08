@@ -60,7 +60,6 @@ class BasicExample extends React.Component {
           <SpinningWheel
             sources={this.getStreamers}
             displayResult={this.displayStream.bind(this)}
-            rotations={8}
           />
         </Fragment>
       </Router>
