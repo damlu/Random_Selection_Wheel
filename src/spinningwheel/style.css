@@ -149,12 +149,21 @@
   top: -16px;
 }
 
+.transparentButton {
+  animation: transparent;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
+}
+
 /* .spinner {
   animation: spin 4s;
 } */
 
 button:focus {
   outline: none;
+}
+button:hover {
+  animation-play-state: initial;
 }
 
 @keyframes spin {
@@ -171,3 +180,21 @@ button:focus {
     opacity: 1;
   }
 }
+
+@keyframes transparent {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* @keyframes show {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}  */

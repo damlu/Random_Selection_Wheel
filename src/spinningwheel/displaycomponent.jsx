@@ -139,9 +139,23 @@ class SpinningWheel extends React.Component {
   render() {
     let circleState;
     let spinner;
+    let buttonStyle;
     let pointerColor = {
       borderColor: `${this.props.outerRingColor} transparent transparent`
     };
+    if (this.state.displayResult) {
+      buttonStyle = {
+        backgroundColor: this.props.buttonColor,
+        animation: "transparent",
+        animationDuration: "1s",
+        animationTimingFunction: "cubic-bezier(0.6, -0.28, 0.74, 0.05)",
+        animationFillMode: "forwards"
+      };
+    } else {
+      buttonStyle = {
+        backgroundColor: this.props.buttonColor
+      };
+    }
     if (this.state.spinning === "start") {
       circleState = {
         backgroundColor: `${this.props.backgroundStart}`,
@@ -163,9 +177,9 @@ class SpinningWheel extends React.Component {
         {this.props.displayResult(this.state.result)}
       </div>
     ) : null;
-    const buttonStyle = {
-      backgroundColor: this.props.buttonColor
-    };
+    // const buttonStyle = {
+    //   backgroundColor: this.props.buttonColor
+    // };
     // const buttonColor = { backgroundColor: this.props.buttonColor };
     return (
       <Fragment>
