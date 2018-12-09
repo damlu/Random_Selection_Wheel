@@ -12,6 +12,10 @@ class SpinningWheel extends React.Component {
       numberOfSources: this.props.numberOfSources || 10,
       rotations: (this.props.rotations || 8) * 360,
       revalTime: this.props.revalTime || 5000,
+      backgroundStart: this.props.backgroundStart,
+      backgroundSpinning: this.props.backgroundSpinning,
+      outerRingColor: this.props.outerRingColor,
+      buttonColor: this.props.buttonColor,
       spinning: "start",
       wedges: null,
       wedgeSources: {},
@@ -133,42 +137,50 @@ class SpinningWheel extends React.Component {
   }
 
   render() {
-    let circleColor;
+    let circleState;
     let spinner;
+    let pointerColor = {
+      borderColor: `${this.props.outerRingColor} transparent transparent`
+    };
     if (this.state.spinning === "start") {
-      circleColor = "positionCircleBlack";
-      spinner = null;
-    }
-    if (this.state.spinning === "spinning") {
-      circleColor = "circleAttrubutesRed";
-      spinner = {
+      circleState = {
+        backgroundColor: `${this.props.backgroundStart}`,
+        boxShadow: `0px 0px 0px 12px
+    ${this.props.outerRingColor}`
+      };
+    } else {
+      circleState = {
+        backgroundColor: `${this.props.backgroundSpinning}`,
+        boxShadow: `0px 0px 0px 12px
+    ${this.props.outerRingColor}`,
         animation: "spin 5s",
         transform: `translate(-50%, 0%) rotate(${this.state.spinBy}deg)`
       };
     }
-    if (this.state.spinning === "stopped") {
-      circleColor = "circleAttrubutesRed";
-    }
+
     const displayResult = this.state.displayResult ? (
       <div className={"displayResult"}>
         {this.props.displayResult(this.state.result)}
       </div>
     ) : null;
-    const rel = { position: "relative" };
+    const buttonStyle = {
+      backgroundColor: this.props.buttonColor
+    };
+    // const buttonColor = { backgroundColor: this.props.buttonColor };
     return (
       <Fragment>
         <div className={"min"}>
           {displayResult}
-          <div style={rel} className={"pointer"} />
+          <div style={pointerColor} className={"pointer"} />
           <button
             disabled={this.state.disableButton}
-            style={rel}
+            style={buttonStyle}
             className={"spinnerButton"}
             onClick={() => this.startSpin()}
           >
             Spin!
           </button>
-          <div style={spinner} className={circleColor}>
+          <div style={(spinner, circleState)} className={"circleStyle"}>
             <div className={"createCirlce"}>
               <div className={"cirlcePlacement"}>{this.state.wedges}</div>
             </div>
