@@ -140,8 +140,8 @@ class SpinningWheel extends React.Component {
         wedges: wedges,
         result: result,
         spinBy: spinBy() + this.state.rotations,
-        disableButton: true
-        // displayResult: true
+        disableButton: true,
+        displayResult: false
       },
       () => {
         setTimeout(() => {
@@ -154,7 +154,7 @@ class SpinningWheel extends React.Component {
   }
 
   startSpin() {
-    this.setState({ spinning: "stopped", displayResult: false });
+    // this.setState({ spinning: "stopped", displayResult: false });
     this.getWedges().then(() => {
       this.createWedges();
       // .then(() => {
