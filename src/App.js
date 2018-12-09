@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-// import LiveStreamer from "./twitchFiles/getLiveStreamer";
 import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/getTenStreamers";
 import SpinningWheel from "./spinningwheel/displaycomponent";
@@ -17,21 +16,9 @@ class BasicExample extends React.Component {
       result: ""
     };
     this.getStreamers = this.getStreamers.bind(this);
-    // this.resetState = this.resetState.bind(this);
     this.displayStream = this.displayStream.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getStreamers();
-  // }
-
-  // getStreamers() {
-  //   const streamers = new TenStreamers();
-  //   return streamers.getTenStreams().then(payload => {
-  //     streamers.getTenImagesAndURLS(payload);
-  //     this.setState({ wedgesSource: streamers.imagesAndURLS });
-  //   });
-  // }
   getStreamers() {
     const streamers = new TenStreamers();
     return streamers.getTenStreams().then(payload => {
@@ -40,18 +27,10 @@ class BasicExample extends React.Component {
     });
   }
 
-  // resetState() {
-  //   this.setState({ url: "", wedgesSource: {} });
-  // }
-
   displayStream(spinResult) {
     debugger;
     return <ReactPlayer url={`${spinResult}`} width={"inherit"} />;
   }
-
-  // spinResult(spinResult) {
-  //   this.setState({ url: spinResult });
-  // }
 
   render() {
     return (

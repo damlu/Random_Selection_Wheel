@@ -27,13 +27,6 @@ class SpinningWheel extends React.Component {
     console.log("hey");
     if (typeof this.state.sources === "function") {
       this.getWedges();
-      // this.state.sources().then(payload => {
-      //   let currentValues = Object.values(payload);
-      //   if (currentValues.length < this.state.numberOfSources) {
-      //     payload = this.properNumberOfSources(currentValues);
-      //   }
-      //   this.setState({ wedgeSources: payload });
-      // });
     } else {
       let sources = this.state.sources;
       let currentValues = Object.values(sources);
@@ -90,7 +83,6 @@ class SpinningWheel extends React.Component {
     const degree = 360 / totalWedges;
     let rotateBy = 0;
     const selected = Math.floor(Math.random() * totalWedges);
-
     let result;
     for (let key in this.state.wedgeSources) {
       const rotation = {
@@ -100,7 +92,6 @@ class SpinningWheel extends React.Component {
         console.log(this.state.wedgeSources[key]["image"]);
         result = this.state.wedgeSources[key]["result"];
       }
-
       wedges.push(
         <div key={key} style={rotation} className={`scaleDiv wedgePosition`}>
           <div className={"triangleTransform"}>
@@ -132,34 +123,18 @@ class SpinningWheel extends React.Component {
         }, this.state.revalTime);
       }
     );
-    // this.props.passBackResult(this.state.result);
     return Promise.resolve("Success");
   }
 
   startSpin() {
-    // this.setState({ spinning: "stopped", displayResult: false });
     this.getWedges().then(() => {
       this.createWedges();
-      // .then(() => {
-      // console.log("wait");
-      // let temp = new Date();
-      // console.log(temp.toLocaleString());
-      // // this.setState({ spinning: "stopped" });
-      // setTimeout(() => {
-      //   // console.log("start");
-      //   // console.log(this.state.revalTime);
-      //   let temp = new Date();
-      //   console.log(temp.toLocaleString());
-      //   this.setState({ displayResult: true });
-      // }, this.state.revalTime);
-      // });
     });
   }
 
   render() {
     let circleColor;
     let spinner;
-    // console.log(this.state.spinning === "spinning");
     if (this.state.spinning === "start") {
       circleColor = "positionCircleBlack";
       spinner = null;
@@ -180,7 +155,6 @@ class SpinningWheel extends React.Component {
       </div>
     ) : null;
     const rel = { position: "relative" };
-    // console.log(displayResult);
     return (
       <Fragment>
         <div className={"min"}>
