@@ -43,21 +43,6 @@ class SpinningWheel extends React.Component {
     }
   }
 
-  // componentWillUpdate() {
-  //   if (this.state.spinning === "stopped") {
-  //     if (typeof this.state.sources === "function") {
-  //       // console.log("hey");
-  //       this.state.sources().then(payload => {
-  //         let currentValues = Object.values(payload);
-  //         if (currentValues.length < this.state.numberOfSources) {
-  //           payload = this.properNumberOfSources(currentValues);
-  //         }
-  //         this.setState({ wedgeSources: payload, spinning: "start" });
-  //       });
-  //     }
-  //   }
-  // }
-
   properNumberOfSources(sources) {
     let currentValues = Object.values(sources);
     while (currentValues.length < this.state.numberOfSources) {
@@ -95,19 +80,17 @@ class SpinningWheel extends React.Component {
     }
   }
 
+  spinBy(degree, selected) {
+    return degree * selected - degree < 0 ? 0 : -(degree * selected - degree);
+  }
+
   createWedges() {
     const wedges = [];
     const totalWedges = Object.keys(this.state.wedgeSources).length;
     const degree = 360 / totalWedges;
     let rotateBy = 0;
     const selected = Math.floor(Math.random() * totalWedges);
-    const spinBy = () => {
-      if (degree * selected - degree < 0) {
-        return 0;
-      } else {
-        return -(degree * selected - degree);
-      }
-    };
+
     let result;
     for (let key in this.state.wedgeSources) {
       const rotation = {
@@ -139,7 +122,7 @@ class SpinningWheel extends React.Component {
         spinning: "spinning",
         wedges: wedges,
         result: result,
-        spinBy: spinBy() + this.state.rotations,
+        spinBy: this.spinBy(degree, selected) + this.state.rotations,
         disableButton: true,
         displayResult: false
       },
