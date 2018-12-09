@@ -128,12 +128,11 @@
 .displayResult {
   position: absolute;
   animation: fadein;
-  animation-duration: 15s;
-  /* animation-delay: 15s; */
-  /* animation-timing-function: ease-in; */
-  /* transition: opacity 10s ease; */
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
   z-index: 100;
   width: 100%;
+  -webkit-transform: scale(0.9);
   transform: scale(0.9);
   top: -16px;
 }
@@ -154,13 +153,9 @@ button:focus {
 
 @keyframes fadein {
   0% {
-    /* z-index: -5; */
-    /* transform: scale(0); */
     opacity: 0;
   }
   100% {
-    /* z-index: 10; */
-    /* transform: scale(0.8); */
     opacity: 1;
   }
 }

@@ -18,7 +18,8 @@ class SpinningWheel extends React.Component {
       degree: 0,
       spinBy: 0,
       result: "",
-      displayResult: false
+      displayResult: false,
+      disableButton: false
     };
   }
 
@@ -138,12 +139,13 @@ class SpinningWheel extends React.Component {
         spinning: "spinning",
         wedges: wedges,
         result: result,
-        spinBy: spinBy() + this.state.rotations
+        spinBy: spinBy() + this.state.rotations,
+        disableButton: true
         // displayResult: true
       },
       () => {
         setTimeout(() => {
-          this.setState({ displayResult: true });
+          this.setState({ displayResult: true, disableButton: false });
         }, this.state.revalTime);
       }
     );
@@ -174,6 +176,7 @@ class SpinningWheel extends React.Component {
   render() {
     let circleColor;
     let spinner;
+    // console.log(this.state.spinning === "spinning");
     if (this.state.spinning === "start") {
       circleColor = "positionCircleBlack";
       spinner = null;
@@ -188,7 +191,6 @@ class SpinningWheel extends React.Component {
     if (this.state.spinning === "stopped") {
       circleColor = "circleAttrubutesRed";
     }
-    console.log(!!this.state.displayResult);
     const displayResult = this.state.displayResult ? (
       <div className={"displayResult"}>
         {this.props.displayResult(this.state.result)}
@@ -202,6 +204,7 @@ class SpinningWheel extends React.Component {
           {displayResult}
           <div style={rel} className={"pointer"} />
           <button
+            disabled={this.state.disableButton}
             style={rel}
             className={"spinnerButton"}
             onClick={() => this.startSpin()}
