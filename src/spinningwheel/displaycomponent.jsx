@@ -63,7 +63,6 @@ class SpinningWheel extends React.Component {
   }
 
   getWedges() {
-    // console.log("getWedges");
     if (typeof this.state.sources === "function") {
       return this.state.sources().then(payload => {
         let currentValues = Object.values(payload);
@@ -94,79 +93,22 @@ class SpinningWheel extends React.Component {
     }
   }
 
-  // spinBy(degree, selected) {
-  //   return degree * selected - degree < 0 ? 0 : -(degree * selected - degree);
-  // }
-
   setResult(result, resultLocation) {
-    // console.log("setResult");
     this.setState({ result: result, resultLocation: resultLocation });
   }
 
-  // createWedges() {
-  // console.log("createWedges");
-  //   const wedges = [];
-  //   const totalWedges = Object.keys(this.state.wedgeSources).length;
-  //   const degree = 360 / totalWedges;
-  //   let rotateBy = 0;
-  //   const selected = Math.floor(Math.random() * totalWedges);
-  //   let result;
-  //   for (let key in this.state.wedgeSources) {
-  //     const rotation = {
-  //       transform: `rotate(${rotateBy}deg)`
-  //     };
-  //     if (key == selected || (selected == 0 && key == 1)) {
-  // console.log(this.state.wedgeSources[key]["image"]);
-  //       result = this.state.wedgeSources[key]["result"];
-  //     }
-  //     wedges.push(
-  //       <div key={key} style={rotation} className={`scaleDiv wedgePosition`}>
-  //         <div className={"triangleTransform"}>
-  //           <div>
-  //             <img
-  //               className={"sourceImage"}
-  //               src={`${this.state.wedgeSources[`${key}`]["image"]}`}
-  //               alt="preview"
-  //             />
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //     rotateBy += degree;
-  //   }
-  //
-  //   this.setState({
-  //     wedges: wedges,
-  //     result: result,
-  //     resultLocation: this.spinBy(degree, selected) + this.state.rotations,
-  //     displayResult: false
-  //   });
-  // }
-
   componentDidUpdate(prevProps, prevState) {
-    // if (prevProps !== this.props) {
-    // console.log("prevProps");
-    // }
-    // if (prevState !== this.state) {
-    // console.log("prevState");
-    // console.log(this.state);
-    // }
-    // console.log(prevState.result !== this.state.result);
-    // console.log(this.state.resetWheel);
     if (
       !this.state.firstSpin &&
       !this.state.resetWheel &&
       prevState.result !== this.state.result
     ) {
-      // console.log("path1");
       this.startSpin();
     }
     if (prevState.result !== this.state.result && !this.state.showWedges) {
-      // console.log("path2");
       this.startSpin();
     }
     if (this.state.disableButton) {
-      // console.log("path3");
       setTimeout(() => {
         this.setState({
           displayResult: true,
@@ -179,18 +121,13 @@ class SpinningWheel extends React.Component {
   }
 
   startSpin() {
-    // console.log("startSpin");
-    // console.log(this.state);
     if (this.state.resetWheel) {
-      // console.log("resetWheel");
       this.getWedges();
     } else if (!this.state.showWedges) {
-      // console.log("show wedges");
       this.setState({
         showWedges: true
       });
     } else {
-      // console.log("regular");
       this.setState({
         spinBy: this.state.resultLocation,
         disableButton: true,
@@ -202,8 +139,6 @@ class SpinningWheel extends React.Component {
   }
 
   render() {
-    // console.log("state change");
-    // console.log(this.state);
     let circleState;
     let buttonStyle;
 
@@ -223,16 +158,6 @@ class SpinningWheel extends React.Component {
         backgroundColor: this.props.buttonColor
       };
     }
-
-    // circleState = {
-    //   backgroundColor: `${this.props.backgroundSpinning}`,
-    //   boxShadow: `0px 0px 0px 12px
-    //     ${this.props.outerRingColor}`,
-    //   transform: `translate(-50%, 0%) rotate(${this.state.spinBy}deg)`,
-    //   transitionDuration: `${this.state.durationOfSpin}`
-    // };
-
-    //this is to reset the wheel back to zero
     if (!this.state.setToZero) {
       circleState = {
         backgroundColor: `${this.props.backgroundSpinning}`,
@@ -263,10 +188,6 @@ class SpinningWheel extends React.Component {
         setResult={this.setResult.bind(this)}
       />
     ) : null;
-    // const buttonStyle = {
-    //   backgroundColor: this.props.buttonColor
-    // };
-    // const buttonColor = { backgroundColor: this.props.buttonColor };
     return (
       <Fragment>
         <div className={"min"}>
