@@ -22,7 +22,6 @@ class Wedges extends React.Component {
   }
 
   createWedges() {
-    console.log(this.state.sources);
     const wedges = [];
     const totalWedges = Object.keys(this.props.sources).length;
     const degree = 360 / totalWedges;
@@ -60,9 +59,6 @@ class Wedges extends React.Component {
 
     this.setState({
       wedges: wedges
-      // result: result,
-      // resultLocation: this.spinBy(degree, selected) + this.state.rotations,
-      // displayResult: false
     });
   }
 
