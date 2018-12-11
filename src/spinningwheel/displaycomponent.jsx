@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import "./style.css";
+import Wedges from "./wedges/createWedges.jsx";
 // import TenStreamers from "./../twitchFiles/getTenStreamers";
 
 class SpinningWheel extends React.Component {
   constructor(props) {
     super(props);
-    this.createWedges = this.createWedges.bind(this);
+    // this.createWedges = this.createWedges.bind(this);
     this.startSpin = this.startSpin.bind(this);
     this.state = {
       sources: this.props.sources,
@@ -17,6 +18,7 @@ class SpinningWheel extends React.Component {
       outerRingColor: this.props.outerRingColor,
       buttonColor: this.props.buttonColor,
       durationOfSpin: this.props.durationOfSpin || "5s",
+      showWedges: this.props.showWedges === false ? false : true,
       spinning: false,
       wedges: null,
       wedgeSources: {},
@@ -70,11 +72,23 @@ class SpinningWheel extends React.Component {
         if (currentValues.length < this.state.numberOfSources) {
           payload = this.properNumberOfSources(currentValues);
         }
-        this.setState({ wedgeSources: payload, spinning: false });
+        this.setState({
+          wedgeSources: payload,
+          spinning: false,
+          resetWheel: false,
+          spinBy: 0,
+          displayResult: false
+        });
       });
     } else {
       let newOrder = this.shuffleArray(this.state.wedgeSources);
-      this.setState({ wedgeSources: newOrder, spinning: false });
+      this.setState({
+        wedgeSources: newOrder,
+        spinning: false,
+        resetWheel: false,
+        spinBy: 0,
+        displayResult: false
+      });
     }
   }
 
@@ -82,93 +96,89 @@ class SpinningWheel extends React.Component {
     return degree * selected - degree < 0 ? 0 : -(degree * selected - degree);
   }
 
-  createWedges() {
-    console.log("createWedges");
-    const wedges = [];
-    const totalWedges = Object.keys(this.state.wedgeSources).length;
-    const degree = 360 / totalWedges;
-    let rotateBy = 0;
-    const selected = Math.floor(Math.random() * totalWedges);
-    let result;
-    for (let key in this.state.wedgeSources) {
-      const rotation = {
-        transform: `rotate(${rotateBy}deg)`
-      };
-      if (key == selected || (selected == 0 && key == 1)) {
-        console.log(this.state.wedgeSources[key]["image"]);
-        result = this.state.wedgeSources[key]["result"];
-      }
-      wedges.push(
-        <div key={key} style={rotation} className={`scaleDiv wedgePosition`}>
-          <div className={"triangleTransform"}>
-            <div>
-              <img
-                className={"sourceImage"}
-                src={`${this.state.wedgeSources[`${key}`]["image"]}`}
-                alt="preview"
-              />
-            </div>
-          </div>
-        </div>
-      );
-      rotateBy += degree;
-    }
-
-    this.setState({
-      wedges: wedges,
-      result: result,
-      resultLocation: this.spinBy(degree, selected) + this.state.rotations,
-      displayResult: false
-    });
-    // this.setState(
-    //   {
-    //     spinning: "spinning",
-    //     wedges: wedges,
-    //     result: result,
-    //     spinBy: this.spinBy(degree, selected) + this.state.rotations,
-    //     disableButton: true,
-    //     displayResult: false
-    //   },
-    //   () => {
-    //     setTimeout(() => {
-    //       this.setState({ displayResult: true, disableButton: false });
-    //     }, this.state.revalTime);
-    //   }
-    // );
-    // return Promise.resolve("Success");
+  setResult(result, resultLocation) {
+    this.setState({ result: result, resultLocation: resultLocation });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.wedgeSources !== this.state.wedgeSources) {
-      this.createWedges();
-    }
-    // if (this.state.spinning && !this.state.disableButton) {
-    //   this.setState({ spinBy: this.state.resultLocation, disableButton: true });
-    // }
-    // if (this.state.spinning === "spinning" && !this.state.displayResult) {
-    //   setTimeout(() => {
-    //     this.setState({ displayResult: true, disableButton: false });
-    //   }, this.state.revalTime);
-    // }
-  }
-
-  // startSpin() {
-  //   this.getWedges().then(() => {
-  //     this.createWedges();
+  // createWedges() {
+  //   console.log("createWedges");
+  //   const wedges = [];
+  //   const totalWedges = Object.keys(this.state.wedgeSources).length;
+  //   const degree = 360 / totalWedges;
+  //   let rotateBy = 0;
+  //   const selected = Math.floor(Math.random() * totalWedges);
+  //   let result;
+  //   for (let key in this.state.wedgeSources) {
+  //     const rotation = {
+  //       transform: `rotate(${rotateBy}deg)`
+  //     };
+  //     if (key == selected || (selected == 0 && key == 1)) {
+  //       console.log(this.state.wedgeSources[key]["image"]);
+  //       result = this.state.wedgeSources[key]["result"];
+  //     }
+  //     wedges.push(
+  //       <div key={key} style={rotation} className={`scaleDiv wedgePosition`}>
+  //         <div className={"triangleTransform"}>
+  //           <div>
+  //             <img
+  //               className={"sourceImage"}
+  //               src={`${this.state.wedgeSources[`${key}`]["image"]}`}
+  //               alt="preview"
+  //             />
+  //           </div>
+  //         </div>
+  //       </div>
+  //     );
+  //     rotateBy += degree;
+  //   }
+  //
+  //   this.setState({
+  //     wedges: wedges,
+  //     result: result,
+  //     resultLocation: this.spinBy(degree, selected) + this.state.rotations,
+  //     displayResult: false
   //   });
   // }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.resetWheel && prevState.result !== this.state.result) {
+      this.startSpin();
+    }
+    if (prevState.result !== this.state.result && !this.state.showWedges) {
+      this.startSpin();
+    }
+    if (this.state.disableButton) {
+      setTimeout(() => {
+        this.setState({
+          displayResult: true,
+          disableButton: false,
+          spinning: false,
+          resetWheel: true
+        });
+      }, this.state.revalTime);
+    }
+  }
+
   startSpin() {
-    this.setState({ spinBy: this.state.resultLocation });
+    if (this.state.resetWheel) {
+      this.getWedges();
+    } else if (!this.state.showWedges) {
+      this.setState({
+        showWedges: true
+      });
+    } else {
+      this.setState({
+        spinBy: this.state.resultLocation,
+        disableButton: true,
+        spinning: true
+      });
+    }
   }
 
   render() {
     console.log("state change");
-    // let rotate = {
-    //   transform: `translate(-50%, 0%) rotate(${this.state.spinBy}deg)`
-    // };
-    // console.log(rotate);
+    console.log(this.state.durationOfSpin);
     let circleState;
-    let spinner;
     let buttonStyle;
     let pointerColor = {
       borderColor: `${this.props.outerRingColor} transparent transparent`
@@ -198,7 +208,7 @@ class SpinningWheel extends React.Component {
         boxShadow: `0px 0px 0px 12px
     ${this.props.outerRingColor}`,
         transform: `translate(-50%, 0%) rotate(${this.state.spinBy}deg)`,
-        transitionDuration: `${this.props.durationOfSpin}`
+        transitionDuration: `${this.state.durationOfSpin}`
       };
     }
 
@@ -206,6 +216,14 @@ class SpinningWheel extends React.Component {
       <div className={"displayResult"}>
         {this.props.displayResult(this.state.result)}
       </div>
+    ) : null;
+    debugger;
+    const displayWedges = this.state.showWedges ? (
+      <Wedges
+        sources={this.state.wedgeSources}
+        rotations={this.state.rotations}
+        setResult={this.setResult.bind(this)}
+      />
     ) : null;
     // const buttonStyle = {
     //   backgroundColor: this.props.buttonColor
@@ -226,7 +244,7 @@ class SpinningWheel extends React.Component {
           </button>
           <div style={circleState} className={"circleStyle"}>
             <div className={"createCirlce"}>
-              <div className={"cirlcePlacement"}>{this.state.wedges}</div>
+              <div className={"cirlcePlacement"}>{displayWedges}</div>
             </div>
           </div>
         </div>
