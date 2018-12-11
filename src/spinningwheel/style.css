@@ -158,9 +158,11 @@
 button:focus {
   outline: none;
 }
-button:hover {
-  animation-play-state: initial;
-}
+
+/* button:hover {
+  transition: opacity 0.5s;
+  opacity: 1;
+} */
 
 @keyframes spin {
   from {
