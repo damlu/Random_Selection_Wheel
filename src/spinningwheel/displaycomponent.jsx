@@ -26,7 +26,8 @@ class SpinningWheel extends React.Component {
       disableButton: false,
       resetWheel: false,
       setToZero: false,
-      firstSpin: true
+      firstSpin: true,
+      loadInResult: false
     };
   }
 
@@ -85,12 +86,18 @@ class SpinningWheel extends React.Component {
       resultLocation: 0,
       displayResult: false,
       resetWheel: false,
-      setToZero: true
+      setToZero: true,
+      result: null,
+      loadInResult: false
     });
   }
 
   setResult(result, resultLocation) {
-    this.setState({ result: result, resultLocation: resultLocation });
+    this.setState({
+      result: result,
+      resultLocation: resultLocation,
+      loadInResult: true
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -154,29 +161,40 @@ class SpinningWheel extends React.Component {
   }
 
   render() {
+    // console.log(this.state);
     let circleState = this.circleStyle();
     let buttonStyle;
+    let displayResultStyle;
 
     let pointerColor = {
       borderColor: `${this.props.outerRingColor} transparent transparent`
     };
     if (this.state.displayResult) {
+      displayResultStyle = {
+        transition: "opacity 1s",
+        opacity: "1",
+        zIndex: "4"
+      };
       buttonStyle = {
         backgroundColor: this.props.buttonColor,
         transition: "opacity 1s",
         opacity: ".5"
       };
     } else {
+      displayResultStyle = {
+        opacity: "0"
+      };
       buttonStyle = {
         backgroundColor: this.props.buttonColor
       };
     }
 
-    const displayResult = this.state.displayResult ? (
-      <div className={"displayResult"}>
-        {this.props.displayResult(this.state.result)}
-      </div>
-    ) : null;
+    let displayResult =
+      this.state.loadInResult && this.state.result ? (
+        <div style={displayResultStyle} className={"displayResult"}>
+          {this.props.displayResult(this.state.result)}
+        </div>
+      ) : null;
 
     const displayWedges = this.state.showWedges ? (
       <Wedges

@@ -28,7 +28,6 @@ class BasicExample extends React.Component {
   }
 
   displayStream(spinResult) {
-    debugger;
     return <ReactPlayer url={`${spinResult}`} width={"inherit"} />;
   }
 

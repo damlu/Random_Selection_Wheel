@@ -137,18 +137,6 @@
   filter: drop-shadow(2px 2px 3px black);
 }
 
-.displayResult {
-  position: absolute;
-  animation: fadein;
-  animation-duration: 1s;
-  animation-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
-  z-index: 100;
-  width: 100%;
-  -webkit-transform: scale(0.9);
-  transform: scale(0.9);
-  top: -16px;
-}
-
 .transparentButton {
   animation: transparent;
   animation-duration: 1s;
