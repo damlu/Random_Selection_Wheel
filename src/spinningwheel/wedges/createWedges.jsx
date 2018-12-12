@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./style.css";
+import "./styleWedges.css";
 
 class Wedges extends React.Component {
   constructor(props) {

@@ -6,26 +6,8 @@
   box-sizing: border-box;
 }
 
-.sourceImage {
-  object-fit: cover;
-  width: 300px;
-  height: 300px;
-}
-
 .circleTransform {
   clip-path: circle(100% at 50% 100%);
-  width: 300px;
-  height: 300px;
-}
-
-.triangleTransform {
-  clip-path: polygon(50% 100%, 18% 0%, 82% 0%);
-  width: 300px;
-  height: 300px;
-}
-
-.scaleDiv {
-  box-sizing: border-box;
   width: 300px;
   height: 300px;
 }
@@ -38,11 +20,6 @@
   padding: 0;
   bottom: 69%;
   width: 40%;
-}
-
-.wedgePosition {
-  position: absolute;
-  transform-origin: center bottom;
 }
 
 .createCirlce {
@@ -72,30 +49,6 @@
   display: inline-block;
 }
 
-.circleAttrubutesRed {
-  height: 450px;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-  position: relative;
-  border-radius: 100%;
-  width: 100%;
-  max-width: 450px;
-  background-color: #ff0000;
-  box-shadow: 0px 0px 0px 12px #9c27b0;
-}
-.positionCircleBlack {
-  height: 450px;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-  position: relative;
-  border-radius: 100%;
-  width: 100%;
-  max-width: 450px;
-  background-color: black;
-  box-shadow: 0px 0px 0px 12px #9c27b0;
-}
 .circleStyle {
   height: 450px;
   left: 50%;
@@ -137,22 +90,29 @@
   filter: drop-shadow(2px 2px 3px black);
 }
 
+.displayResult {
+  position: absolute;
+  width: 100%;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  top: -16px;
+  opacity: 0;
+}
+
 .transparentButton {
   animation: transparent;
   animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
 }
 
-/* .spinner {
-  animation: spin 4s;
-} */
-
 button:focus {
   outline: none;
 }
-button:hover {
-  animation-play-state: initial;
-}
+
+/* button:hover {
+  transition: opacity 0.5s;
+  opacity: 1;
+} */
 
 @keyframes spin {
   from {
@@ -177,12 +137,3 @@ button:hover {
     opacity: 0.5;
   }
 }
-
-/* @keyframes show {
-  0% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}  */

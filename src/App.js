@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/getTenStreamers";
-import SpinningWheel from "./spinningwheel/displaycomponent";
+import SpinningWheel from "./spinningwheel/displayComponent";
 
 class BasicExample extends React.Component {
   constructor(props) {
