@@ -97,6 +97,8 @@
   transform: scale(0.9);
   top: -16px;
   opacity: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .transparentButton {

@@ -13,7 +13,49 @@ class BasicExample extends React.Component {
       name: "",
       game: "",
       wedgesSource: {},
-      result: ""
+      result: "",
+      testFiles: {
+        "1": {
+          image: "./test_images/Anybots_robot_monty.jpg",
+          result: "./test_images/Anybots_robot_monty.jpg"
+        },
+        "2": {
+          image: "./test_images/costume-head-horn-908686.jpg",
+          result: "./test_images/costume-head-horn-908686.jpg"
+        },
+        "3": {
+          image: "./test_images/step_6.jpg",
+          result: "./test_images/step_6.jpg"
+        }
+        // "4": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "5": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "6": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "7": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "8": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "9": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // },
+        // "10": {
+        //   image: "./test_images/step_6.jpg",
+        //   result: "./test_images/step_6.jpg"
+        // }
+      }
     };
     this.getStreamers = this.getStreamers.bind(this);
     this.displayStream = this.displayStream.bind(this);
@@ -31,17 +73,18 @@ class BasicExample extends React.Component {
     return <ReactPlayer url={`${spinResult}`} width={"inherit"} />;
   }
 
+  display(spinResult) {
+    return <img src={`${spinResult}`} alt="result" />;
+  }
+
   render() {
+    debugger;
     return (
       <Router>
         <Fragment>
           <SpinningWheel
             sources={this.getStreamers}
             displayResult={this.displayStream.bind(this)}
-            buttonColor={"orange"}
-            backgroundStart={"black"}
-            backgroundSpinning={"orange"}
-            outerRingColor={"white"}
           />
         </Fragment>
       </Router>

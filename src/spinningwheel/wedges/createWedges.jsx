@@ -22,6 +22,7 @@ class Wedges extends React.Component {
   }
 
   createWedges() {
+    debugger;
     const wedges = [];
     const totalWedges = Object.keys(this.props.sources).length;
     const degree = 360 / totalWedges;
@@ -32,8 +33,10 @@ class Wedges extends React.Component {
       const rotation = {
         transform: `rotate(${rotateBy}deg)`
       };
+
       if (key == selected || (selected == 0 && key == 1)) {
         console.log(this.props.sources[key]["image"]);
+        console.log(this.props.sources[key]["result"]);
         result = this.props.sources[key]["result"];
       }
       wedges.push(
