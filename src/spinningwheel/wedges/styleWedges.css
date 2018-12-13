@@ -5,7 +5,7 @@
 }
 
 .triangleTransform {
-  clip-path: polygon(50% 100%, 21% 0%, 83% 0%);
+  clip-path: polygon(50% 100%, 20% 0%, 80% 0%);
   width: 300px;
   height: 300px;
 }

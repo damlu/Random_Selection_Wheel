@@ -99,6 +99,12 @@
   opacity: 0;
   display: flex;
   justify-content: center;
+  max-height: 356px;
+  max-width: 700px;
+}
+
+.displayResult * {
+  object-fit: contain;
 }
 
 .transparentButton {

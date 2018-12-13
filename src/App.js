@@ -85,6 +85,15 @@ class BasicExample extends React.Component {
           <SpinningWheel
             sources={this.getStreamers}
             displayResult={this.displayStream.bind(this)}
+            buttonColor={"orange"}
+            backgroundStart={"black"}
+            backgroundSpinning={"orange"}
+            outerRingColor={"white"}
+            numberOfSources={3}
+            fadeInTime={1}
+            durationOfSpin={5}
+            rotations={30}
+            showWedges={false}
           />
         </Fragment>
       </Router>
