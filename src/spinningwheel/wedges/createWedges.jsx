@@ -32,7 +32,7 @@ class Wedges extends React.Component {
       70: 45.7,
       80: 45.8,
       90: 45.9,
-      100: 46
+      100: 47.2
     };
     let rightSideObj = {
       10: 76,
@@ -44,7 +44,7 @@ class Wedges extends React.Component {
       70: 54,
       80: 53,
       90: 52.5,
-      100: 52
+      100: 52.8
     };
     let numAsString = "" + numOfWedges;
     let onesPlace = +numAsString[numAsString.length - 1];
@@ -109,6 +109,7 @@ class Wedges extends React.Component {
     let rotateBy = 0;
     const selected = Math.floor(Math.random() * totalWedges);
     let result;
+    // let triangleStyle = null;
     let triangleStyle = this.triangleStyle(totalWedges);
     for (let key in this.props.sources) {
       const rotation = {

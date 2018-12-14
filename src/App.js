@@ -14,7 +14,7 @@ class BasicExample extends React.Component {
       game: "",
       wedgesSource: {},
       result: "",
-      numberOfSources: 20,
+      numberOfSources: 100,
       testFiles: {
         "1": {
           image: "./test_images/Anybots_robot_monty.jpg",
@@ -81,6 +81,8 @@ class BasicExample extends React.Component {
   updateSources(num) {
     debugger;
     let newNum = +num.target.value;
+    if (newNum < 10) newNum = 10;
+    if (newNum > 100) newNum = 100;
     this.setState({ numberOfSources: newNum });
   }
 
@@ -100,7 +102,7 @@ class BasicExample extends React.Component {
             fadeInTime={1.5}
             durationOfSpin={6}
             rotations={8}
-            showWedges={false}
+            showWedges={true}
           />
         </Fragment>
       </Router>
