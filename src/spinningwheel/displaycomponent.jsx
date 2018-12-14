@@ -5,13 +5,11 @@ import Wedges from "./wedges/createWedges.jsx";
 class SpinningWheel extends React.Component {
   constructor(props) {
     super(props);
-    debugger;
     this.startSpin = this.startSpin.bind(this);
     let numberOfSources = this.props.numberOfSources;
     if (!numberOfSources || numberOfSources < 10) {
       numberOfSources = 10;
     }
-    debugger;
     this.state = {
       sources: this.props.sources,
       numberOfSources: numberOfSources,
@@ -35,9 +33,11 @@ class SpinningWheel extends React.Component {
       firstSpin: true,
       loadInResult: false
     };
+    debugger;
   }
 
   componentDidMount() {
+    debugger;
     if (typeof this.state.sources === "function") {
       this.getWedges();
     } else {
@@ -119,7 +119,24 @@ class SpinningWheel extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (
+    debugger;
+    if (prevProps.numberOfSources !== this.props.numberOfSources) {
+      this.setState({
+        numberOfSources: this.props.numberOfSources,
+        spinBy: 0,
+        resultLocation: 0,
+        displayResult: false,
+        resetWheel: false,
+        setToZero: true,
+        result: null,
+        loadInResult: false,
+        spinning: false,
+        firstSpin: true,
+        showWedges: this.props.showWedges === false ? false : true
+      });
+    } else if (prevState.numberOfSources !== this.state.numberOfSources) {
+      this.getWedges();
+    } else if (
       !this.state.firstSpin &&
       !this.state.resetWheel &&
       prevState.result !== this.state.result
@@ -127,7 +144,8 @@ class SpinningWheel extends React.Component {
       this.startSpin();
     } else if (
       prevState.result !== this.state.result &&
-      this.state.showWedges !== true
+      this.state.showWedges &&
+      this.state.spinning
     ) {
       this.startSpin();
     } else if (this.state.disableButton) {
@@ -147,8 +165,10 @@ class SpinningWheel extends React.Component {
     if (this.state.resetWheel) {
       this.getWedges();
     } else if (!this.state.showWedges) {
+      debugger;
       this.setState({
-        showWedges: true
+        showWedges: true,
+        spinning: true
       });
     } else {
       this.setState({

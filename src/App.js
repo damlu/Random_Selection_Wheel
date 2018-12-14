@@ -14,6 +14,7 @@ class BasicExample extends React.Component {
       game: "",
       wedgesSource: {},
       result: "",
+      numberOfSources: 20,
       testFiles: {
         "1": {
           image: "./test_images/Anybots_robot_monty.jpg",
@@ -77,11 +78,17 @@ class BasicExample extends React.Component {
     return <img src={`${spinResult}`} alt="result" />;
   }
 
-  render() {
+  updateSources(num) {
     debugger;
+    let newNum = +num.target.value;
+    this.setState({ numberOfSources: newNum });
+  }
+
+  render() {
     return (
       <Router>
         <Fragment>
+          <input type={"text"} onBlur={e => this.updateSources(e)} />
           <SpinningWheel
             sources={this.getStreamers}
             displayResult={this.displayStream.bind(this)}
@@ -89,10 +96,10 @@ class BasicExample extends React.Component {
             backgroundStart={"black"}
             backgroundSpinning={"orange"}
             outerRingColor={"white"}
-            numberOfSources={3}
-            fadeInTime={1}
-            durationOfSpin={5}
-            rotations={30}
+            numberOfSources={this.state.numberOfSources}
+            fadeInTime={1.5}
+            durationOfSpin={6}
+            rotations={8}
             showWedges={false}
           />
         </Fragment>
