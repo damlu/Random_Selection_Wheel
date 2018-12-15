@@ -68,6 +68,7 @@ class Wedges extends React.Component {
       );
       // console.log(rightSideObj[lowerRange], "rightSideObj[lowerRange]");
       console.log(rightSlope * onesPlace, "rightSlope * onesPlace");
+      console.log(onesPlace, "onesPlace");
       console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
       // console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
       // console.log(leftSideObj[lowerRange], "leftSideObj[lowerRange]");
@@ -102,7 +103,6 @@ class Wedges extends React.Component {
   }
 
   createWedges() {
-    debugger;
     const wedges = [];
     const totalWedges = Object.keys(this.props.sources).length;
     const degree = 360 / totalWedges;

@@ -4,6 +4,7 @@ body {
   background-color: seashell;
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    min-width: 800px;
 }
 
 code {

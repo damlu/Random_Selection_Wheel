@@ -14,7 +14,11 @@ class BasicExample extends React.Component {
       game: "",
       wedgesSource: {},
       result: "",
-      numberOfSources: 100,
+      numberOfSources: 20,
+      outerRingColor: 'white',
+      backgroundColor: 'orange',
+      buttonColor: 'orange',
+      buttonBorder: 'black',
       testFiles: {
         "1": {
           image: "./test_images/Anybots_robot_monty.jpg",
@@ -78,32 +82,55 @@ class BasicExample extends React.Component {
     return <img src={`${spinResult}`} alt="result" />;
   }
 
-  updateSources(num) {
-    debugger;
-    let newNum = +num.target.value;
-    if (newNum < 10) newNum = 10;
-    if (newNum > 100) newNum = 100;
-    this.setState({ numberOfSources: newNum });
+  updateSources(e) {
+    debugger
+    const id = e.target.id;
+    let value = e.target.value;
+    if(e.target.id === 'numberOfSources'){
+      let value = +e.target.value;
+      if (value < 10) value = 10;
+      if (value > 100) value = 100;
+    }
+    this.setState({ [id]: value });
+  }
+
+  updateOnEnter(e){
+    if(e.key === 'Enter'){
+      this.updateSources(e);
+    }
   }
 
   render() {
     return (
       <Router>
         <Fragment>
-          <input type={"text"} onBlur={e => this.updateSources(e)} />
-          <SpinningWheel
-            sources={this.getStreamers}
-            displayResult={this.displayStream.bind(this)}
-            buttonColor={"orange"}
-            backgroundStart={"black"}
-            backgroundSpinning={"orange"}
-            outerRingColor={"white"}
-            numberOfSources={this.state.numberOfSources}
-            fadeInTime={1.5}
-            durationOfSpin={6}
-            rotations={8}
-            showWedges={true}
-          />
+          <div>
+            <p>number of wedges <br/> 10 - 100 </p>
+            <input id={'numberOfSources'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+            <p>Outer Ring Color</p>
+            <input id={'outerRingColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+            <p>Background Color</p>
+            <input id={'backgroundColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+            <p>Button Color</p>
+            <input id={'buttonColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+            <p>Button Border</p>
+            <input id={'buttonBorder'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+          </div>
+          <div style={{marginLeft: '50px'}}>
+            <SpinningWheel
+              sources={this.getStreamers}
+              displayResult={this.displayStream.bind(this)}
+              buttonColor={this.state.buttonColor}
+              backgroundColor={this.state.backgroundColor}
+              outerRingColor={this.state.outerRingColor}
+              numberOfSources={this.state.numberOfSources}
+              buttonBorder={this.state.buttonBorder}
+              fadeInTime={1.5}
+              durationOfSpin={6}
+              rotations={8}
+              showWedges={true}
+              />
+          </div>
         </Fragment>
       </Router>
     );
