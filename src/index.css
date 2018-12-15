@@ -11,6 +11,10 @@ code {
   font-family: "Courier New", monospace;
 }
 
+li {
+  list-style: none;
+}
+
 #id {
   display: flex;
   justify-content: center;

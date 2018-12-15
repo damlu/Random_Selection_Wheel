@@ -19,6 +19,15 @@ class BasicExample extends React.Component {
       backgroundColor: 'orange',
       buttonColor: 'orange',
       buttonBorder: 'black',
+      changableSettings: [
+        ['numberOfSources', 'number of wedges <br/> 10 - 100'],
+      ],
+      changableColorSettings: [
+        ['outerRingColor', 'Outer Ring Color'],
+        ['backgroundColor', "Background Color"],
+        ['buttonColor', 'Button Color'],
+        ['buttonBorder','Button Border']
+      ],
       testFiles: {
         "1": {
           image: "./test_images/Anybots_robot_monty.jpg",
@@ -100,21 +109,37 @@ class BasicExample extends React.Component {
     }
   }
 
+  changableSettings(inputs){
+    debugger
+    const display = [];
+    const settings = inputs;
+    for (let i = 0; i < settings.length; i++) {
+      const id = settings[i][0];
+      let description = settings[i][1];
+      display.push(
+        <li key={i}>
+          <p dangerouslySetInnerHTML={{__html: description }}/>
+          <input id={`${id}`} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+        </li>
+      )
+    }
+    return display
+  }
+
   render() {
+    let changableSettingsNumbers = this.changableSettings(this.state.changableSettings)
+    let changableColorSettings = this.changableSettings(this.state.changableColorSettings)
     return (
       <Router>
         <Fragment>
           <div>
-            <p>number of wedges <br/> 10 - 100 </p>
-            <input id={'numberOfSources'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
-            <p>Outer Ring Color</p>
-            <input id={'outerRingColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
-            <p>Background Color</p>
-            <input id={'backgroundColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
-            <p>Button Color</p>
-            <input id={'buttonColor'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
-            <p>Button Border</p>
-            <input id={'buttonBorder'} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+            <ul>
+              {changableSettingsNumbers}
+            </ul>
+            <ul>
+              <p>Please use valid CSS colors</p>
+              {changableColorSettings}
+            </ul>
           </div>
           <div style={{marginLeft: '50px'}}>
             <SpinningWheel
