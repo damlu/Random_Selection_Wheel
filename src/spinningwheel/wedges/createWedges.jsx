@@ -22,9 +22,40 @@ class Wedges extends React.Component {
   }
 
   triangleStyle(numOfWedges) {
+    // let leftSideObj = {
+    //   10: 24,
+    //   20: 37,
+    //   30: 40,
+    //   40: 43,
+    //   50: 44,
+    //   60: 45.5,
+    //   70: 45.7,
+    //   80: 45.8,
+    //   90: 45.9,
+    //   100: 47.2
+    // };
+    // let rightSideObj = {
+    //   10: 76,
+    //   20: 63,
+    //   30: 60,
+    //   40: 58,
+    //   50: 56,
+    //   60: 55,
+    //   70: 54,
+    //   80: 53,
+    //   90: 52.5,
+    //   100: 52.8
+    // };
     let leftSideObj = {
-      10: 24,
-      20: 37,
+      10: 19,
+      11: 23,
+      12: 26,
+      13: 30,
+      14: 32,
+      15: 34,
+      17: 35.5,
+      18: 35.6,
+      20: 36,
       30: 40,
       40: 43,
       50: 44,
@@ -35,8 +66,15 @@ class Wedges extends React.Component {
       100: 47.2
     };
     let rightSideObj = {
-      10: 76,
-      20: 63,
+      10: 81,
+      11: 79,
+      12: 77.5,
+      13: 76,
+      14: 75,
+      15: 74,
+      17: 70.5,
+      18: 69,
+      20: 66,
       30: 60,
       40: 58,
       50: 56,
@@ -48,7 +86,7 @@ class Wedges extends React.Component {
     };
     let numAsString = "" + numOfWedges;
     let onesPlace = +numAsString[numAsString.length - 1];
-    if (onesPlace === 0) {
+    if (rightSideObj[numOfWedges]) {
       return {
         clipPath: `polygon(50% 100%, ${leftSideObj[numOfWedges]}% 0%, ${
           rightSideObj[numOfWedges]
@@ -58,6 +96,18 @@ class Wedges extends React.Component {
       let tensPlace = +("" + numOfWedges)[0];
       let lowerRange = +(tensPlace + "0");
       let upperRange = +("" + (tensPlace + 1) + "0");
+      if(numOfWedges < 20 && numOfWedges > 15){
+        lowerRange = null;
+        upperRange = null;
+        let counter = 1;
+        while(!lowerRange || !upperRange){
+          debugger
+          if(rightSideObj[numOfWedges+counter]) upperRange = numOfWedges+counter;
+          if(rightSideObj[numOfWedges-counter]) lowerRange = numOfWedges-counter;
+          counter++;
+        }
+      }
+      // console.log([lowerRange, upperRange])
       let range = [lowerRange, upperRange];
       // console.log(range);
 
@@ -67,15 +117,15 @@ class Wedges extends React.Component {
         rightSideObj
       );
       // console.log(rightSideObj[lowerRange], "rightSideObj[lowerRange]");
-      console.log(rightSlope * onesPlace, "rightSlope * onesPlace");
-      console.log(onesPlace, "onesPlace");
-      console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
+      // console.log(rightSlope * onesPlace, "rightSlope * onesPlace");
+      // console.log(onesPlace, "onesPlace");
+      // console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
       // console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
       // console.log(leftSideObj[lowerRange], "leftSideObj[lowerRange]");
       let xRight = rightSlope * onesPlace + rightSideObj[lowerRange];
       let xLeft = leftSlope * onesPlace + leftSideObj[lowerRange];
-      console.log(xLeft);
-      console.log(xRight);
+      // console.log(xLeft);
+      // console.log(xRight);
 
       return {
         clipPath: `polygon(50% 100%, ${xLeft}% 0%, ${xRight}% 0%)`

@@ -14,7 +14,7 @@ class BasicExample extends React.Component {
       game: "",
       wedgesSource: {},
       result: "",
-      numberOfSources: 20,
+      numberOfSources: 10,
       outerRingColor: 'white',
       backgroundColor: 'orange',
       buttonColor: 'orange',
@@ -96,7 +96,7 @@ class BasicExample extends React.Component {
     const id = e.target.id;
     let value = e.target.value;
     if(e.target.id === 'numberOfSources'){
-      let value = +e.target.value;
+      value = +e.target.value;
       if (value < 10) value = 10;
       if (value > 100) value = 100;
     }
@@ -132,16 +132,13 @@ class BasicExample extends React.Component {
     return (
       <Router>
         <Fragment>
-          <div>
+          <div style={{maxWidth: '285px'}} className={'changableSettings'}>
             <ul>
-              {changableSettingsNumbers}
-            </ul>
-            <ul>
-              <p>Please use valid CSS colors</p>
+              <p>Below you can modify the colors of the wheel. <br/> Please use valid CSS colors</p>
               {changableColorSettings}
             </ul>
           </div>
-          <div style={{marginLeft: '50px'}}>
+          <div style={{marginLeft: '50px', marginRight: '50px'}}>
             <SpinningWheel
               sources={this.getStreamers}
               displayResult={this.displayStream.bind(this)}
@@ -151,10 +148,16 @@ class BasicExample extends React.Component {
               numberOfSources={this.state.numberOfSources}
               buttonBorder={this.state.buttonBorder}
               fadeInTime={1.5}
-              durationOfSpin={6}
-              rotations={8}
+              durationOfSpin={5}
+              rotations={9}
               showWedges={true}
               />
+          </div>
+          <div style={{maxWidth: '285px'}} className={'changableSettings'}>
+            <ul>
+              <p>Below you can modify the attrubutes of the wheel.</p>
+              {changableSettingsNumbers}
+            </ul>
           </div>
         </Fragment>
       </Router>
