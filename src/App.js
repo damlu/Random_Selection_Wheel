@@ -103,6 +103,7 @@ class BasicExample extends React.Component {
   }
 
   updateSources(e) {
+    debugger;
     const id = e.target.id;
     let value = e.target.value;
     if (value === "") {
@@ -111,6 +112,12 @@ class BasicExample extends React.Component {
       value = +e.target.value;
       if (value < 10) value = 10;
       if (value > 100) value = 100;
+    } else if (e.target.id === "showWedges") {
+      if (value === "false") {
+        value = false;
+      } else {
+        value = true;
+      }
     }
     this.setState({ [id]: value });
   }
@@ -186,7 +193,7 @@ class BasicExample extends React.Component {
           </div>
           <div className={"lowerSetting"}>
             <div className={"centerItems"}>
-              <p>Show Wedges</p>
+              <p>Show Wedges before spin</p>
               <select
                 value={this.state.showWedges}
                 id={"showWedges"}
