@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/getTenStreamers";
 import SpinningWheel from "./spinningwheel/displayComponent";
+import "./App.css";
 
 class BasicExample extends React.Component {
   constructor(props) {
@@ -15,18 +16,28 @@ class BasicExample extends React.Component {
       wedgesSource: {},
       result: "",
       numberOfSources: 10,
-      outerRingColor: 'white',
-      backgroundColor: 'orange',
-      buttonColor: 'orange',
-      buttonBorder: 'black',
+      numberOfRotations: 10,
+      durationOfSpin: 10,
+      fadeInTime: 1,
+      outerRingColor: "white",
+      backgroundColor: "orange",
+      buttonColor: "orange",
+      buttonBorder: "black",
+      showWedges: true,
       changableSettings: [
-        ['numberOfSources', 'number of wedges <br/> 10 - 100'],
+        ["numberOfSources", "Number of wedges: <br/> 10 - 100"],
+        ["fadeInTime", "Duration of reveal: <br/> in secs"],
+        ["durationOfSpin", "Duration of spinning: <br/> in secs"],
+        [
+          "numberOfRotations",
+          "Number of rotations: <br/> if the number of rotations can't be done within the duration of the spin, the wheel will abruptly stop then reveal the result"
+        ]
       ],
       changableColorSettings: [
-        ['outerRingColor', 'Outer Ring Color'],
-        ['backgroundColor', "Background Color"],
-        ['buttonColor', 'Button Color'],
-        ['buttonBorder','Button Border']
+        ["outerRingColor", "Outer Ring Color"],
+        ["backgroundColor", "Background Color"],
+        ["buttonColor", "Button Color"],
+        ["buttonBorder", "Button Border"]
       ],
       testFiles: {
         "1": {
@@ -92,10 +103,11 @@ class BasicExample extends React.Component {
   }
 
   updateSources(e) {
-    debugger
     const id = e.target.id;
     let value = e.target.value;
-    if(e.target.id === 'numberOfSources'){
+    if (value === "") {
+      return;
+    } else if (e.target.id === "numberOfSources") {
       value = +e.target.value;
       if (value < 10) value = 10;
       if (value > 100) value = 100;
@@ -103,14 +115,13 @@ class BasicExample extends React.Component {
     this.setState({ [id]: value });
   }
 
-  updateOnEnter(e){
-    if(e.key === 'Enter'){
+  updateOnEnter(e) {
+    if (e.key === "Enter") {
       this.updateSources(e);
     }
   }
 
-  changableSettings(inputs){
-    debugger
+  changableSettings(inputs) {
     const display = [];
     const settings = inputs;
     for (let i = 0; i < settings.length; i++) {
@@ -118,46 +129,73 @@ class BasicExample extends React.Component {
       let description = settings[i][1];
       display.push(
         <li key={i}>
-          <p dangerouslySetInnerHTML={{__html: description }}/>
-          <input id={`${id}`} type={"text"} onBlur={e => this.updateSources(e)} onKeyPress={e=>this.updateOnEnter(e)} />
+          <p dangerouslySetInnerHTML={{ __html: description }} />
+          <input
+            id={`${id}`}
+            type={"text"}
+            onBlur={e => this.updateSources(e)}
+            onKeyPress={e => this.updateOnEnter(e)}
+          />
         </li>
-      )
+      );
     }
-    return display
+    return display;
   }
 
   render() {
-    let changableSettingsNumbers = this.changableSettings(this.state.changableSettings)
-    let changableColorSettings = this.changableSettings(this.state.changableColorSettings)
+    let changableSettingsNumbers = this.changableSettings(
+      this.state.changableSettings
+    );
+    let changableColorSettings = this.changableSettings(
+      this.state.changableColorSettings
+    );
     return (
       <Router>
         <Fragment>
-          <div style={{maxWidth: '285px'}} className={'changableSettings'}>
-            <ul>
-              <p>Below you can modify the colors of the wheel. <br/> Please use valid CSS colors</p>
-              {changableColorSettings}
-            </ul>
-          </div>
-          <div style={{marginLeft: '50px', marginRight: '50px'}}>
-            <SpinningWheel
-              sources={this.getStreamers}
-              displayResult={this.displayStream.bind(this)}
-              buttonColor={this.state.buttonColor}
-              backgroundColor={this.state.backgroundColor}
-              outerRingColor={this.state.outerRingColor}
-              numberOfSources={this.state.numberOfSources}
-              buttonBorder={this.state.buttonBorder}
-              fadeInTime={1.5}
-              durationOfSpin={5}
-              rotations={9}
-              showWedges={true}
+          <div className={"centerArea"}>
+            <div style={{ maxWidth: "285px" }} className={"changableSettings"}>
+              <ul>
+                <p>
+                  Below you can modify the colors of the wheel. <br /> Please
+                  use valid CSS colors
+                </p>
+                {changableColorSettings}
+              </ul>
+            </div>
+            <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+              <SpinningWheel
+                sources={this.getStreamers}
+                displayResult={this.displayStream.bind(this)}
+                buttonColor={this.state.buttonColor}
+                backgroundColor={this.state.backgroundColor}
+                outerRingColor={this.state.outerRingColor}
+                numberOfSources={this.state.numberOfSources}
+                buttonBorder={this.state.buttonBorder}
+                fadeInTime={this.state.fadeInTime}
+                durationOfSpin={this.state.durationOfSpin}
+                rotations={this.state.numberOfRotations}
+                showWedges={this.state.showWedges}
               />
+            </div>
+            <div style={{ maxWidth: "285px" }} className={"changableSettings"}>
+              <ul>
+                <p>Below you can modify the attrubutes of the wheel.</p>
+                {changableSettingsNumbers}
+              </ul>
+            </div>
           </div>
-          <div style={{maxWidth: '285px'}} className={'changableSettings'}>
-            <ul>
-              <p>Below you can modify the attrubutes of the wheel.</p>
-              {changableSettingsNumbers}
-            </ul>
+          <div className={"lowerSetting"}>
+            <div className={"centerItems"}>
+              <p>Show Wedges</p>
+              <select
+                value={this.state.showWedges}
+                id={"showWedges"}
+                onChange={e => this.updateSources(e)}
+              >
+                <option value={true}>true</option>
+                <option value={false}>false</option>
+              </select>
+            </div>
           </div>
         </Fragment>
       </Router>

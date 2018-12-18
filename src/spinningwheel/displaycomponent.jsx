@@ -13,10 +13,9 @@ class SpinningWheel extends React.Component {
     this.state = {
       sources: this.props.sources,
       numberOfSources: numberOfSources,
-      rotations: (this.props.rotations || 8) * 360,
-      backgroundColor: this.props.backgroundColor,
-      outerRingColor: this.props.outerRingColor,
-      buttonColor: this.props.buttonColor,
+      backgroundColor: this.props.backgroundColor || "orange",
+      outerRingColor: this.props.outerRingColor || "white",
+      buttonColor: this.props.buttonColor || "orange",
       durationOfSpin: this.props.durationOfSpin || 5,
       showWedges: this.props.showWedges === false ? false : true,
       fadeInTime: this.props.fadeInTime || 1,
@@ -27,7 +26,7 @@ class SpinningWheel extends React.Component {
       result: "",
       displayResult: false,
       disableButton: false,
-      resetWheel: false,
+      updateWheel: false,
       setToZero: false,
       firstSpin: true,
       loadInResult: false
@@ -38,7 +37,6 @@ class SpinningWheel extends React.Component {
     if (typeof this.state.sources === "function") {
       this.getWedges();
     } else {
-
       let sources = this.state.sources;
       let currentValues = Object.values(sources);
       if (currentValues.length < this.state.numberOfSources) {
@@ -97,7 +95,7 @@ class SpinningWheel extends React.Component {
       spinBy: 0,
       resultLocation: 0,
       displayResult: false,
-      resetWheel: false,
+      updateWheel: false,
       setToZero: true,
       result: null,
       loadInResult: false
@@ -112,26 +110,38 @@ class SpinningWheel extends React.Component {
     });
   }
 
+  resetWheel(pairValues) {
+    this.setState({
+      numberOfSources: this.props.numberOfSources,
+      spinBy: 0,
+      resultLocation: 0,
+      displayResult: false,
+      updateWheel: false,
+      setToZero: true,
+      result: null,
+      loadInResult: false,
+      spinning: false,
+      firstSpin: true,
+      showWedges: this.props.showWedges === false ? false : true
+    });
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    debugger;
     if (prevProps.numberOfSources !== this.props.numberOfSources) {
-      this.setState({
-        numberOfSources: this.props.numberOfSources,
-        spinBy: 0,
-        resultLocation: 0,
-        displayResult: false,
-        resetWheel: false,
-        setToZero: true,
-        result: null,
-        loadInResult: false,
-        spinning: false,
-        firstSpin: true,
-        showWedges: this.props.showWedges === false ? false : true
-      });
+      this.resetWheel();
     } else if (prevState.numberOfSources !== this.state.numberOfSources) {
       this.getWedges();
+    } else if (prevProps.durationOfSpin !== this.props.durationOfSpin) {
+      this.setState({ durationOfSpin: this.props.durationOfSpin || 5 });
+    } else if (prevProps.fadeInTime !== this.props.fadeInTime) {
+      this.setState({ fadeInTime: this.props.fadeInTime || 1 });
+    } else if (prevProps.showWedges !== this.props.showWedges) {
+      debugger;
+      this.resetWheel();
     } else if (
       !this.state.firstSpin &&
-      !this.state.resetWheel &&
+      !this.state.updateWheel &&
       prevState.result !== this.state.result
     ) {
       this.startSpin();
@@ -147,14 +157,14 @@ class SpinningWheel extends React.Component {
           displayResult: true,
           disableButton: false,
           spinning: false,
-          resetWheel: true
+          updateWheel: true
         });
       }, this.state.durationOfSpin * 1000);
     }
   }
 
   startSpin() {
-    if (this.state.resetWheel) {
+    if (this.state.updateWheel) {
       this.getWedges();
     } else if (!this.state.showWedges) {
       this.setState({
@@ -225,9 +235,11 @@ class SpinningWheel extends React.Component {
     let circleState = this.circleStyle();
     let buttonStyle = this.buttonStyle();
     let displayResultStyle = this.displayResultStyle();
-    let pointerColor = {
-      borderColor: `${this.props.outerRingColor} transparent transparent`
-    };
+    let pointerColor = this.props.outerRingColor
+      ? {
+          borderColor: `${this.props.outerRingColor} transparent transparent`
+        }
+      : { borderColor: `white transparent transparent` };
 
     let displayResult =
       this.state.loadInResult && this.state.result ? (
@@ -239,7 +251,7 @@ class SpinningWheel extends React.Component {
     const displayWedges = this.state.showWedges ? (
       <Wedges
         sources={this.state.wedgeSources}
-        rotations={this.state.rotations}
+        rotations={this.props.rotations}
         setResult={this.setResult.bind(this)}
       />
     ) : null;

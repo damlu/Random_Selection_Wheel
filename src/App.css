@@ -21,7 +21,26 @@
 .App-link {
   color: #61dafb;
 }
+.centerArea {
+  display: flex;
+  justify-content: center;
+  margin-top: 72px;
+  align-items: center;
+}
 
+.lowerSetting {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  align-items: center;
+}
+
+.centerItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 @keyframes App-logo-spin {
   from {

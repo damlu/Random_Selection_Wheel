@@ -6,7 +6,7 @@ class Wedges extends React.Component {
     super(props);
     this.state = {
       sources: this.props.sources,
-      rotations: this.props.rotations,
+      rotations: (this.props.rotations || 8) * 360,
       wedges: null
     };
   }
@@ -16,36 +16,17 @@ class Wedges extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.sources !== this.props.sources) {
+    if (
+      prevProps.sources !== this.props.sources ||
+      prevState.rotations !== this.state.rotations
+    ) {
       this.createWedges();
+    } else if (prevProps.rotations !== this.props.rotations) {
+      this.setState({ rotations: (this.props.rotations || 8) * 360 });
     }
   }
 
   triangleStyle(numOfWedges) {
-    // let leftSideObj = {
-    //   10: 24,
-    //   20: 37,
-    //   30: 40,
-    //   40: 43,
-    //   50: 44,
-    //   60: 45.5,
-    //   70: 45.7,
-    //   80: 45.8,
-    //   90: 45.9,
-    //   100: 47.2
-    // };
-    // let rightSideObj = {
-    //   10: 76,
-    //   20: 63,
-    //   30: 60,
-    //   40: 58,
-    //   50: 56,
-    //   60: 55,
-    //   70: 54,
-    //   80: 53,
-    //   90: 52.5,
-    //   100: 52.8
-    // };
     let leftSideObj = {
       10: 19,
       11: 23,
@@ -96,36 +77,27 @@ class Wedges extends React.Component {
       let tensPlace = +("" + numOfWedges)[0];
       let lowerRange = +(tensPlace + "0");
       let upperRange = +("" + (tensPlace + 1) + "0");
-      if(numOfWedges < 20 && numOfWedges > 15){
+      if (numOfWedges < 20 && numOfWedges > 15) {
         lowerRange = null;
         upperRange = null;
         let counter = 1;
-        while(!lowerRange || !upperRange){
-          debugger
-          if(rightSideObj[numOfWedges+counter]) upperRange = numOfWedges+counter;
-          if(rightSideObj[numOfWedges-counter]) lowerRange = numOfWedges-counter;
+        while (!lowerRange || !upperRange) {
+          if (rightSideObj[numOfWedges + counter])
+            upperRange = numOfWedges + counter;
+          if (rightSideObj[numOfWedges - counter])
+            lowerRange = numOfWedges - counter;
           counter++;
         }
       }
-      // console.log([lowerRange, upperRange])
       let range = [lowerRange, upperRange];
-      // console.log(range);
 
       let [leftSlope, rightSlope] = this.findTheSlope(
         range,
         leftSideObj,
         rightSideObj
       );
-      // console.log(rightSideObj[lowerRange], "rightSideObj[lowerRange]");
-      // console.log(rightSlope * onesPlace, "rightSlope * onesPlace");
-      // console.log(onesPlace, "onesPlace");
-      // console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
-      // console.log(leftSlope * onesPlace, "leftSlope * onesPlace");
-      // console.log(leftSideObj[lowerRange], "leftSideObj[lowerRange]");
       let xRight = rightSlope * onesPlace + rightSideObj[lowerRange];
       let xLeft = leftSlope * onesPlace + leftSideObj[lowerRange];
-      // console.log(xLeft);
-      // console.log(xRight);
 
       return {
         clipPath: `polygon(50% 100%, ${xLeft}% 0%, ${xRight}% 0%)`
@@ -136,18 +108,10 @@ class Wedges extends React.Component {
   findTheSlope(range, leftKey, rightKey) {
     let lowerRange = range[0];
     let upperRange = range[1];
-    // console.log(lowerRange, "lowerRange");
-    // console.log(upperRange, "upperRange");
-    // console.log(leftKey[upperRange], "leftKey[upperRange]");
-    // console.log(leftKey[lowerRange], "leftKey[lowerRange]");
-    // console.log(rightKey[upperRange], "rightKey[upperRange]");
-    // console.log(rightKey[lowerRange], "rightKey[lowerRange]");
 
     let leftSlope = (leftKey[upperRange] - leftKey[lowerRange]) / 10;
 
     let rightSlope = (rightKey[upperRange] - rightKey[lowerRange]) / 10;
-    console.log(leftSlope, "leftSlope");
-    console.log(rightSlope, "rightSlope");
 
     return [leftSlope, rightSlope];
   }
@@ -159,7 +123,6 @@ class Wedges extends React.Component {
     let rotateBy = 0;
     const selected = Math.floor(Math.random() * totalWedges);
     let result;
-    // let triangleStyle = null;
     let triangleStyle = this.triangleStyle(totalWedges);
     for (let key in this.props.sources) {
       const rotation = {
