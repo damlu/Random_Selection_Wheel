@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import "./displayComponentStyle.css";
-import Wedges from "./wedges/createWedges.jsx";
+import "./spinningWheelStyle.css";
+import Wedges from "./createWedges.jsx";
 
 class SpinningWheel extends React.Component {
   constructor(props) {
@@ -111,40 +111,7 @@ class SpinningWheel extends React.Component {
     });
   }
 
-  // resetWheel() {
-  //   this.setState({
-  //     numberOfSources: this.props.numberOfSources,
-  //     spinBy: 0,
-  //     resultLocation: 0,
-  //     displayResult: false,
-  //     updateWheel: false,
-  //     setToZero: true,
-  //     result: null,
-  //     loadInResult: false,
-  //     spinning: false,
-  //     firstSpin: true,
-  //     showWedges: this.props.showWedges === false ? false : true
-  //   });
-  // }
-
   componentDidUpdate(prevProps, prevState) {
-    // debugger;
-    // if (prevProps.numberOfSources !== this.props.numberOfSources) {
-    //   this.resetWheel();
-    // } else if (prevState.numberOfSources !== this.state.numberOfSources) {
-    //   this.getWedges();
-    // } else if (prevProps.sources !== this.props.sources) {
-    //   this.setState({ sources: this.props.sources });
-    // } else if (prevState.sources !== this.state.sources) {
-    //   this.setWedges(this.state.sources);
-    // } else if (prevProps.durationOfSpin !== this.props.durationOfSpin) {
-    //   this.setState({ durationOfSpin: this.props.durationOfSpin || 5 });
-    // } else if (prevProps.fadeInTime !== this.props.fadeInTime) {
-    //   this.setState({ fadeInTime: this.props.fadeInTime || 1 });
-    // } else if (prevProps.showWedges !== this.props.showWedges) {
-    //   debugger;
-    //   this.resetWheel();
-    // } else
     if (
       !this.state.firstSpin &&
       !this.state.updateWheel &&
@@ -246,14 +213,12 @@ class SpinningWheel extends React.Component {
           borderColor: `${this.props.outerRingColor} transparent transparent`
         }
       : { borderColor: `white transparent transparent` };
-
     let displayResult =
       this.state.loadInResult && this.state.result ? (
         <div style={displayResultStyle} className={"displayResult"}>
           {this.props.displayResult(this.state.result)}
         </div>
       ) : null;
-
     const displayWedges = this.state.showWedges ? (
       <Wedges
         sources={this.state.wedgeSources}
@@ -261,6 +226,7 @@ class SpinningWheel extends React.Component {
         setResult={this.setResult.bind(this)}
       />
     ) : null;
+
     return (
       <Fragment>
         <div className={"min"}>
@@ -286,5 +252,3 @@ class SpinningWheel extends React.Component {
 }
 
 export default SpinningWheel;
-
-// const spin = { "clipPath": "polygon(50% 100%, 18% 0%, 82% 0%)" };

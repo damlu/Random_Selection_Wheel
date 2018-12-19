@@ -1,6 +1,6 @@
-## RandoStream
+## Random Selection Wheel
 
-[Live Link](https://dmoisoff.com/RandoStream/)
+[Live Link](https://dmoisoff.com/Random_Selection_Wheel/)
 
 ![](./readme_assest/readme_image.gif)
 
