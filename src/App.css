@@ -30,7 +30,7 @@
 
 .lowerSetting {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-top: 35px;
   align-items: center;
 }

@@ -16,6 +16,7 @@ class Wedges extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    debugger;
     if (
       prevProps.sources !== this.props.sources ||
       prevState.rotations !== this.state.rotations

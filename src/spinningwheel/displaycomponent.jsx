@@ -10,6 +10,7 @@ class SpinningWheel extends React.Component {
     if (!numberOfSources || numberOfSources < 10) {
       numberOfSources = 10;
     }
+    debugger;
     this.state = {
       sources: this.props.sources,
       numberOfSources: numberOfSources,
@@ -110,7 +111,7 @@ class SpinningWheel extends React.Component {
     });
   }
 
-  resetWheel(pairValues) {
+  resetWheel() {
     this.setState({
       numberOfSources: this.props.numberOfSources,
       spinBy: 0,
@@ -127,19 +128,24 @@ class SpinningWheel extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    debugger;
-    if (prevProps.numberOfSources !== this.props.numberOfSources) {
-      this.resetWheel();
-    } else if (prevState.numberOfSources !== this.state.numberOfSources) {
-      this.getWedges();
-    } else if (prevProps.durationOfSpin !== this.props.durationOfSpin) {
-      this.setState({ durationOfSpin: this.props.durationOfSpin || 5 });
-    } else if (prevProps.fadeInTime !== this.props.fadeInTime) {
-      this.setState({ fadeInTime: this.props.fadeInTime || 1 });
-    } else if (prevProps.showWedges !== this.props.showWedges) {
-      debugger;
-      this.resetWheel();
-    } else if (
+    // debugger;
+    // if (prevProps.numberOfSources !== this.props.numberOfSources) {
+    //   this.resetWheel();
+    // } else if (prevState.numberOfSources !== this.state.numberOfSources) {
+    //   this.getWedges();
+    // } else if (prevProps.sources !== this.props.sources) {
+    //   this.setState({ sources: this.props.sources });
+    // } else if (prevState.sources !== this.state.sources) {
+    //   this.setWedges(this.state.sources);
+    // } else if (prevProps.durationOfSpin !== this.props.durationOfSpin) {
+    //   this.setState({ durationOfSpin: this.props.durationOfSpin || 5 });
+    // } else if (prevProps.fadeInTime !== this.props.fadeInTime) {
+    //   this.setState({ fadeInTime: this.props.fadeInTime || 1 });
+    // } else if (prevProps.showWedges !== this.props.showWedges) {
+    //   debugger;
+    //   this.resetWheel();
+    // } else
+    if (
       !this.state.firstSpin &&
       !this.state.updateWheel &&
       prevState.result !== this.state.result

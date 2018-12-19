@@ -4,17 +4,12 @@ import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/getTenStreamers";
 import SpinningWheel from "./spinningwheel/displayComponent";
 import "./App.css";
+import { photosImages, numberImages } from "./test_images";
 
 class BasicExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: "",
-      viewing: "",
-      name: "",
-      game: "",
-      wedgesSource: {},
-      result: "",
       numberOfSources: 10,
       numberOfRotations: 10,
       durationOfSpin: 10,
@@ -39,48 +34,13 @@ class BasicExample extends React.Component {
         ["buttonColor", "Button Color"],
         ["buttonBorder", "Button Border"]
       ],
-      testFiles: {
-        "1": {
-          image: "./test_images/Anybots_robot_monty.jpg",
-          result: "./test_images/Anybots_robot_monty.jpg"
-        },
-        "2": {
-          image: "./test_images/costume-head-horn-908686.jpg",
-          result: "./test_images/costume-head-horn-908686.jpg"
-        },
-        "3": {
-          image: "./test_images/step_6.jpg",
-          result: "./test_images/step_6.jpg"
-        }
-        // "4": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "5": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "6": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "7": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "8": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "9": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // },
-        // "10": {
-        //   image: "./test_images/step_6.jpg",
-        //   result: "./test_images/step_6.jpg"
-        // }
-      }
+      // testFiles: testImages,
+      sources: this.getStreamers,
+      displayResult: this.displayStream.bind(this),
+      wheel: null,
+      updated: false
+      // sources: photosImages,
+      // displayResult: this.display.bind(this),
     };
     this.getStreamers = this.getStreamers.bind(this);
     this.displayStream = this.displayStream.bind(this);
@@ -102,11 +62,17 @@ class BasicExample extends React.Component {
     return <img src={`${spinResult}`} alt="result" />;
   }
 
-  updateSources(e) {
+  updateValues(e) {
     debugger;
     const id = e.target.id;
     let value = e.target.value;
-    if (value === "") {
+    if (value === "" || this.state[id] == value) {
+      return;
+    } else if (
+      id.toLowerCase().includes("color") ||
+      id.toLowerCase().includes("button")
+    ) {
+      this.setState({ [id]: value });
       return;
     } else if (e.target.id === "numberOfSources") {
       value = +e.target.value;
@@ -119,12 +85,36 @@ class BasicExample extends React.Component {
         value = true;
       }
     }
-    this.setState({ [id]: value });
+    this.setState({ [id]: value, updated: true });
+  }
+
+  updateSources(e) {
+    debugger;
+    let value = e.target.value;
+    if (value === "function") {
+      this.setState({
+        sources: this.getStreamers,
+        displayResult: this.displayStream.bind(this),
+        updated: true
+      });
+    } else {
+      let imageSources;
+      if (value === "photosImages") {
+        imageSources = photosImages;
+      } else {
+        imageSources = numberImages;
+      }
+      this.setState({
+        sources: imageSources,
+        displayResult: this.display.bind(this),
+        updated: true
+      });
+    }
   }
 
   updateOnEnter(e) {
     if (e.key === "Enter") {
-      this.updateSources(e);
+      this.updateValues(e);
     }
   }
 
@@ -140,7 +130,7 @@ class BasicExample extends React.Component {
           <input
             id={`${id}`}
             type={"text"}
-            onBlur={e => this.updateSources(e)}
+            onBlur={e => this.updateValues(e)}
             onKeyPress={e => this.updateOnEnter(e)}
           />
         </li>
@@ -149,18 +139,57 @@ class BasicExample extends React.Component {
     return display;
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    debugger;
+    if (this.state.updated) {
+      this.spinningWheel();
+    }
+  }
+
+  componentDidMount() {
+    this.spinningWheel();
+  }
+
+  spinningWheel() {
+    debugger;
+    if (this.state.updated)
+      this.setState({
+        updated: false
+      });
+    return (
+      <SpinningWheel
+        sources={this.state.sources}
+        displayResult={this.state.displayResult}
+        buttonColor={this.state.buttonColor}
+        backgroundColor={this.state.backgroundColor}
+        outerRingColor={this.state.outerRingColor}
+        numberOfSources={this.state.numberOfSources}
+        buttonBorder={this.state.buttonBorder}
+        fadeInTime={this.state.fadeInTime}
+        durationOfSpin={this.state.durationOfSpin}
+        rotations={this.state.numberOfRotations}
+        showWedges={this.state.showWedges}
+      />
+    );
+  }
+
   render() {
+    debugger;
     let changableSettingsNumbers = this.changableSettings(
       this.state.changableSettings
     );
     let changableColorSettings = this.changableSettings(
       this.state.changableColorSettings
     );
+    let wheel = !this.state.updated ? this.spinningWheel() : null;
     return (
       <Router>
         <Fragment>
           <div className={"centerArea"}>
-            <div style={{ maxWidth: "285px" }} className={"changableSettings"}>
+            <div
+              style={{ maxWidth: "285px", zIndex: 5 }}
+              className={"changableSettings"}
+            >
               <ul>
                 <p>
                   Below you can modify the colors of the wheel. <br /> Please
@@ -170,23 +199,18 @@ class BasicExample extends React.Component {
               </ul>
             </div>
             <div style={{ marginLeft: "50px", marginRight: "50px" }}>
-              <SpinningWheel
-                sources={this.getStreamers}
-                displayResult={this.displayStream.bind(this)}
-                buttonColor={this.state.buttonColor}
-                backgroundColor={this.state.backgroundColor}
-                outerRingColor={this.state.outerRingColor}
-                numberOfSources={this.state.numberOfSources}
-                buttonBorder={this.state.buttonBorder}
-                fadeInTime={this.state.fadeInTime}
-                durationOfSpin={this.state.durationOfSpin}
-                rotations={this.state.numberOfRotations}
-                showWedges={this.state.showWedges}
-              />
+              {wheel}
             </div>
-            <div style={{ maxWidth: "285px" }} className={"changableSettings"}>
+            <div
+              style={{ maxWidth: "285px", zIndex: 5 }}
+              className={"changableSettings"}
+            >
               <ul>
-                <p>Below you can modify the attrubutes of the wheel.</p>
+                <p>
+                  Below you can modify the attrubutes of the wheel. <br />{" "}
+                  Updating these elements will cause the wheel to reload its
+                  contents
+                </p>
                 {changableSettingsNumbers}
               </ul>
             </div>
@@ -197,10 +221,19 @@ class BasicExample extends React.Component {
               <select
                 value={this.state.showWedges}
                 id={"showWedges"}
-                onChange={e => this.updateSources(e)}
+                onChange={e => this.updateValues(e)}
               >
                 <option value={true}>true</option>
                 <option value={false}>false</option>
+              </select>
+            </div>
+            <div className={"centerItems"}>
+              <p>Types of inputs</p>
+              <select onChange={e => this.updateSources(e)}>
+                <option defaultValue value={"function"}>
+                  Results from API
+                </option>
+                <option value={"photosImages"}>Photos</option>
               </select>
             </div>
           </div>
