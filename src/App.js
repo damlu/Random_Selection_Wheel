@@ -25,7 +25,7 @@ class BasicExample extends React.Component {
         ["durationOfSpin", "Duration of spinning: <br/> in secs"],
         [
           "numberOfRotations",
-          "Number of rotations: <br/> if the number of rotations can't be done within the duration of the spin, the wheel will abruptly stop then reveal the result"
+          "Number of rotations: <br/> if the number is to large, the wheel will abruptly stop then reveal the result"
         ]
       ],
       changableColorSettings: [
@@ -125,7 +125,7 @@ class BasicExample extends React.Component {
       const id = settings[i][0];
       let description = settings[i][1];
       display.push(
-        <li key={i}>
+        <li key={i} className={"inputFormating"}>
           <p dangerouslySetInnerHTML={{ __html: description }} />
           <input
             id={`${id}`}
