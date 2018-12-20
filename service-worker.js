@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/RandoStream/precache-manifest.1a70dd5e117e659713d3ae03cda6def5.js"
+  "/Random_Selection_Wheel/precache-manifest.8e6ee2ee60bfe12e89ed9a0598e83c52.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/RandoStream/index.html", {
+workbox.routing.registerNavigationRoute("/Random_Selection_Wheel/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
