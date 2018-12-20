@@ -1,5 +1,5 @@
 {
-  "name": "Random-Selection-Wheel",
+  "name": "random-selection-wheel",
   "version": "0.1.0",
   "homepage": "https://dmoisoff.com/Random_Selection_Wheel/",
   "main": "dist/index.js",
