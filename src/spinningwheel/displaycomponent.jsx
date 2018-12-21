@@ -10,7 +10,6 @@ class SpinningWheel extends React.Component {
     if (!numberOfSources || numberOfSources < 10) {
       numberOfSources = 10;
     }
-    debugger;
     this.state = {
       sources: this.props.sources,
       numberOfSources: numberOfSources,
@@ -128,7 +127,6 @@ class SpinningWheel extends React.Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    // debugger;
     // if (prevProps.numberOfSources !== this.props.numberOfSources) {
     //   this.resetWheel();
     // } else if (prevState.numberOfSources !== this.state.numberOfSources) {
@@ -142,7 +140,6 @@ class SpinningWheel extends React.Component {
     // } else if (prevProps.fadeInTime !== this.props.fadeInTime) {
     //   this.setState({ fadeInTime: this.props.fadeInTime || 1 });
     // } else if (prevProps.showWedges !== this.props.showWedges) {
-    //   debugger;
     //   this.resetWheel();
     // } else
     if (

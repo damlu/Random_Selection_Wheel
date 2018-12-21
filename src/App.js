@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactPlayer from "react-player";
 import TenStreamers from "./twitchFiles/getTenStreamers";
-import SpinningWheel from "./spinningwheel/displayComponent";
+import { SpinningWheel } from "./spinningwheel/displayComponent";
 import "./App.css";
-import { photosImages, numberImages } from "./test_images";
+import { photosImages } from "./test_images";
+// import { SpinningWheel } from "wheel-test";
 
 class BasicExample extends React.Component {
   constructor(props) {
@@ -63,7 +64,6 @@ class BasicExample extends React.Component {
   }
 
   updateValues(e) {
-    debugger;
     const id = e.target.id;
     let value = e.target.value;
     if (value === "" || this.state[id] == value) {
@@ -89,7 +89,6 @@ class BasicExample extends React.Component {
   }
 
   updateSources(e) {
-    debugger;
     let value = e.target.value;
     if (value === "function") {
       this.setState({
@@ -140,7 +139,6 @@ class BasicExample extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    debugger;
     if (this.state.updated) {
       this.spinningWheel();
     }
@@ -151,7 +149,6 @@ class BasicExample extends React.Component {
   }
 
   spinningWheel() {
-    debugger;
     if (this.state.updated)
       this.setState({
         updated: false
@@ -174,7 +171,6 @@ class BasicExample extends React.Component {
   }
 
   render() {
-    debugger;
     let changableSettingsNumbers = this.changableSettings(
       this.state.changableSettings
     );
