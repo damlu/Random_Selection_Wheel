@@ -1,12 +1,21 @@
 {
-  "name": "random-selection-wheel",
+  "name": "react-random-selection-wheel",
   "version": "0.1.0",
+  "description": "A random selection wheel for react",
   "homepage": "https://dmoisoff.com/Random_Selection_Wheel/",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "resolutions": {
     "babel-core": "^7.0.0-bridge"
   },
+  "keywords": [
+    "react",
+    "react random selection wheel",
+    "random selection wheel",
+    "selection wheel",
+    "wheel"
+  ],
+  "author": "Daniel Moisoff",
   "files": [
     "dist",
     "README.md"
@@ -18,7 +27,7 @@
   "dependencies": {},
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib_files --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
     "buildwebpage": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -60,6 +69,7 @@
     "react-scripts": "2.0.4",
     "react-test-renderer": "^16.5.2",
     "react-timeout": "^1.1.2",
+    "react-tools": "^0.13.3",
     "react-twitch-embed-video": "^1.0.1",
     "regenerator-runtime": "^0.13.1",
     "request": "^2.88.0",

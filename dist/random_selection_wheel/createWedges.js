@@ -34,8 +34,6 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      debugger;
-
       if (prevProps.sources !== this.props.sources || prevState.rotations !== this.state.rotations) {
         this.createWedges();
       } else if (prevProps.rotations !== this.props.rotations) {

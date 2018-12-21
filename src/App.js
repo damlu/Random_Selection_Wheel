@@ -35,13 +35,10 @@ class BasicExample extends React.Component {
         ["buttonColor", "Button Color"],
         ["buttonBorder", "Button Border"]
       ],
-      // testFiles: testImages,
       sources: this.getStreamers,
       displayResult: this.displayStream.bind(this),
       wheel: null,
       updated: false
-      // sources: photosImages,
-      // displayResult: this.display.bind(this),
     };
     this.getStreamers = this.getStreamers.bind(this);
     this.displayStream = this.displayStream.bind(this);
@@ -97,12 +94,7 @@ class BasicExample extends React.Component {
         updated: true
       });
     } else {
-      let imageSources;
-      if (value === "photosImages") {
-        imageSources = photosImages;
-      } else {
-        imageSources = numberImages;
-      }
+      const imageSources = photosImages;
       this.setState({
         sources: imageSources,
         displayResult: this.display.bind(this),
