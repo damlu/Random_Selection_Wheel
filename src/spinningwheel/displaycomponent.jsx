@@ -265,15 +265,17 @@ class SpinningWheel extends React.Component {
       <Fragment>
         <div className={"min"}>
           {displayResult}
-          <div style={pointerColor} className={"pointer"} />
-          <button
-            disabled={this.state.disableButton}
-            style={buttonStyle}
-            className={"spinnerButton"}
-            onClick={() => this.startSpin()}
-          >
-            Spin!
-          </button>
+          <div className={"alignmentOnCircle"}>
+            <div style={pointerColor} className={"pointer"} />
+            <button
+              disabled={this.state.disableButton}
+              style={buttonStyle}
+              className={"spinnerButton"}
+              onClick={() => this.startSpin()}
+            >
+              Spin!
+            </button>
+          </div>
           <div style={circleState} className={"circleStyle"}>
             <div className={"createCirlce"}>
               <div className={"cirlcePlacement"}>{displayWedges}</div>
@@ -285,6 +287,6 @@ class SpinningWheel extends React.Component {
   }
 }
 
-export default SpinningWheel;
+export { SpinningWheel };
 
 // const spin = { "clipPath": "polygon(50% 100%, 18% 0%, 82% 0%)" };
