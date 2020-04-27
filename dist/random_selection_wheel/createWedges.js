@@ -1,9 +1,9 @@
-import _slicedToArray from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/slicedToArray";
-import _classCallCheck from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
-import _inherits from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/inherits";
+import _slicedToArray from "./../node_modules/@babel/runtime/helpers/esm/slicedToArray";
+import _classCallCheck from "./../node_modules/@babel/runtime/helpers/esm/classCallCheck";
+import _createClass from "./../node_modules/@babel/runtime/helpers/esm/createClass";
+import _possibleConstructorReturn from "./../node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
+import _getPrototypeOf from "./../node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
+import _inherits from "./../node_modules/@babel/runtime/helpers/esm/inherits";
 import React, { Fragment } from "react";
 import "./styleWedges.css";
 
