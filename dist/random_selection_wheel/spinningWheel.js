@@ -1,10 +1,10 @@
-import _toConsumableArray from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/toConsumableArray";
-import _classCallCheck from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
-import _inherits from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/inherits";
-import _assertThisInitialized from "/Users/danielmoisoff/Documents/coding/randostreams/randostream_app/node_modules/@babel/runtime/helpers/esm/assertThisInitialized";
+import _toConsumableArray from "./../node_modules/@babel/runtime/helpers/esm/toConsumableArray";
+import _classCallCheck from "./../node_modules/@babel/runtime/helpers/esm/classCallCheck";
+import _createClass from "./../node_modules/@babel/runtime/helpers/esm/createClass";
+import _possibleConstructorReturn from "./../node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
+import _getPrototypeOf from "./../node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
+import _inherits from "./../node_modules/@babel/runtime/helpers/esm/inherits";
+import _assertThisInitialized from "./../node_modules/@babel/runtime/helpers/esm/assertThisInitialized";
 import React, { Fragment } from "react";
 import "./spinningWheelStyle.css";
 import Wedges from "./createWedges.js";
