@@ -1,6 +1,6 @@
 {
   "name": "react-random-selection-wheel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A random selection wheel for react",
   "homepage": "https://dmoisoff.com/Random_Selection_Wheel/",
   "main": "dist/index.js",
