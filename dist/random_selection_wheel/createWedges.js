@@ -1,9 +1,9 @@
-import _slicedToArray from "./../node_modules/@babel/runtime/helpers/esm/slicedToArray";
-import _classCallCheck from "./../node_modules/@babel/runtime/helpers/esm/classCallCheck";
-import _createClass from "./../node_modules/@babel/runtime/helpers/esm/createClass";
-import _possibleConstructorReturn from "./../node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn";
-import _getPrototypeOf from "./../node_modules/@babel/runtime/helpers/esm/getPrototypeOf";
-import _inherits from "./../node_modules/@babel/runtime/helpers/esm/inherits";
+import _slicedToArray from "@babel/runtime/helpers/esm/slicedToArray";
+import _classCallCheck from "@babel/runtime/helpers/esm/classCallCheck";
+import _createClass from "@babel/runtime/helpers/esm/createClass";
+import _possibleConstructorReturn from "@babel/runtime/helpers/esm/possibleConstructorReturn";
+import _getPrototypeOf from "@babel/runtime/helpers/esm/getPrototypeOf";
+import _inherits from "@babel/runtime/helpers/esm/inherits";
 import React, { Fragment } from "react";
 import "./styleWedges.css";
 
